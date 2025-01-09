@@ -1,10 +1,14 @@
 "use strict";
+//Unterschied String und Number
+// console.log(206456);
+// console.log("206456");
 
 //Gesamtbilanz anlegen (Codeumbau -> bessere optische Strukturierung)
 let bilanz_einnahme = 0,
     bilanz_ausgabe = 0,
     bilanz = 0;
 //let bilanz = 206456 -5236; 
+
 
 //Umbau mit Funktionen
 // anonyme Funktion erstellen //zusammenfassende Schreibweise zur Deklaration von Variablen
@@ -14,6 +18,10 @@ let titel,
     datum;
 
 
+//Eingabedaten vom Nutzer holen ->
+//Anmerkung: ein prompt liefert immer einen String zurück!!
+
+//Umbau mit Funktionen
 const eintragErfassen = function () {
     titel = prompt("Wie heißt dein Eintrag?", "Gehalt");
     typ = prompt("Ist das eine Einnahme oder Ausgabe?");
@@ -21,19 +29,10 @@ const eintragErfassen = function () {
     datum = prompt("Datum? (jjjj-mm-tt)");
 };
 
-eintragErfassen();
+//eintragErfassen();
 
-
-//Eingabedaten vom Nutzer holen ->
-//Anmerkung: ein prompt liefert immer einen String zurück!!
 
 // Datensatz 1
-
-//Unterschied String und Number
-// console.log(206456);
-// console.log("206456");
-
-
 // -->Codeblock ist durch Funktion ersetzt
 // let titel_1 = prompt("Wie heißt dein Eintrag?", "Gehalt");
 // let titeltyp_1 = prompt("Ist das eine Einnahme oder Ausgabe?");
@@ -48,54 +47,100 @@ eintragErfassen();
 // );
 
 //Code an neue Variablen angepasst
-console.log(`Titel: ${titel}
-    Titeltyp: ${typ}
-    Betrag: ${betrag} ct
-    Datum: ${datum}`
-);
+// console.log(`Titel: ${titel}
+//     Titeltyp: ${typ}
+//     Betrag: ${betrag} ct
+//     Datum: ${datum}`
+// );
 
+//Umbau mit Funktionen
+const eintragAusgeben = function (titel, typ, betrag, datum) {
+    console.log(`Titel: ${titel}
+Titeltyp: ${typ}
+Betrag: ${betrag} ct
+Datum: ${datum}`
+    );
+};
 
-if (titeltyp_1 === "Einnahme") {
-    bilanz_einnahme += betrag_1;
-    bilanz += betrag_1;
-} else if (titeltyp_1 === "Ausgabe") {
-    bilanz_ausgabe += betrag_1;
-    bilanz = bilanz + betrag_1;
-} else {
-    console.log(`Der Typ "${titeltyp_1}" ist nicht bekannt.`);
-}
+eintragAusgeben(titel, typ, betrag, datum);
 
+// -->Codeblock ist durch Funktion ersetzt
+// if (titeltyp_1 === "Einnahme") {
+//     bilanz_einnahme += betrag_1;
+//     bilanz += betrag_1;
+// } else if (titeltyp_1 === "Ausgabe") {
+//     bilanz_ausgabe += betrag_1;
+//     bilanz = bilanz - betrag_1;
+// } else {
+//     console.log(`Der Typ "${titeltyp_1}" ist nicht bekannt.`);
+// }
 
-//Datensatz 2
+// Umbau mit Funktion
+const eintragMitGesamtBilanzVerrechnen = function (typ, betrag) {
+    if (typ === "Einnahme") {
+        bilanz_einnahme += betrag;
+        bilanz += betrag;
+    } else if (typ === "Ausgabe") {
+        bilanz_ausgabe += betrag;
+        bilanz = bilanz - betrag;
+    } else {
+        console.log(`Der Typ "${typ}" ist nicht bekannt.`);
+    }
+};
 
-let titel_2 = prompt("Wie heißt dein Eintrag?", "Einkauf");
-let titeltyp_2 = prompt("Ist das eine Einnahme oder Ausgabe?");
-let betrag_2 = parseInt(prompt("Betrag (in Cent)?"));
-let datum_2 = prompt("Datum? (jjjj-mm-tt");
+eintragMitGesamtBilanzVerrechnen(typ, betrag);
 
-console.log(`Titel: ${titel_2}
-    Titeltyp: ${titeltyp_2}
-    Betrag: ${betrag_2} ct
-    Datum: ${datum_2}`
-);
+// //Datensatz 2
+// -->Codeblock ist durch Funktion ersetzt
+// let titel_2 = prompt("Wie heißt dein Eintrag?", "Einkauf");
+// let titeltyp_2 = prompt("Ist das eine Einnahme oder Ausgabe?");
+// let betrag_2 = parseInt(prompt("Betrag (in Cent)?"));
+// let datum_2 = prompt("Datum? (jjjj-mm-tt");
 
-if (titeltyp_2 === "Einnahme") {
-    bilanz_einnahme += betrag_2;
-    bilanz += betrag_2;
-} else if (titeltyp_2 === "Ausgabe") {
-    bilanz_ausgabe += betrag_2;
-    bilanz = bilanz - betrag_2;
-} else {
-    console.log(`Der Typ "${titeltyp_2}" ist nicht bekannt.`);
-}
+// console.log(`Titel: ${titel_2}
+//     Titeltyp: ${titeltyp_2}
+//     Betrag: ${betrag_2} ct
+//     Datum: ${datum_2}`
+// );
 
+// if (titeltyp_2 === "Einnahme") {
+//     bilanz_einnahme += betrag_2;
+//     bilanz += betrag_2;
+// } else if (titeltyp_2 === "Ausgabe") {
+//     bilanz_ausgabe += betrag_2;
+//     bilanz = bilanz - betrag_2;
+// } else {
+//     console.log(`Der Typ "${titeltyp_2}" ist nicht bekannt.`);
+// }
 
 //Gesamtbilanz ausgeben
 
-let positiv = bilanz >= 0; //true
-console.log(`Einnahmen: ${bilanz_einnahme} ct
-    Ausgaben: ${bilanz_ausgabe} ct
-    Bilanz: ${bilanz} ct
-    Bilanz ist positiv: ${positiv}`);
+// -->Codeblock ist durch Funktion ersetzt
+// let positiv = bilanz >= 0; //true
+// console.log(`Einnahmen: ${bilanz_einnahme} ct
+//     Ausgaben: ${bilanz_ausgabe} ct
+//     Bilanz: ${bilanz} ct
+//     Bilanz ist positiv: ${positiv}`);
+
+// Umbau mit Funktion
+const gesamtBilanzAusgeben = function (bilanz_einnahme, bilanz_ausgabe, bilanz) {
+    console.log(`Einnahmen: ${bilanz_einnahme} ct
+Ausgaben: ${bilanz_ausgabe} ct
+Bilanz: ${bilanz} ct
+Bilanz ist positiv: ${bilanz >= 0}`);
+};
+
+gesamtBilanzAusgeben(bilanz_einnahme, bilanz_ausgabe, bilanz);
 
 
+//alle Funktionen mit einer Funktion aufrufen 
+const eintragHinzufuegen = function(){
+    eintragErfassen();
+    eintragAusgeben(titel, typ, betrag, datum);
+    eintragMitGesamtBilanzVerrechnen(typ, betrag);
+    gesamtBilanzAusgeben(bilanz_einnahme, bilanz_ausgabe, bilanz);
+};
+
+eintragHinzufuegen();
+eintragHinzufuegen();
+eintragHinzufuegen();
