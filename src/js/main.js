@@ -1,17 +1,17 @@
 "use strict";
-//Unterschied String und Number
+// Unterschied String und Number
 // console.log(206456);
 // console.log("206456");
 
-//Gesamtbilanz anlegen (Codeumbau -> bessere optische Strukturierung)
+// Gesamtbilanz anlegen (Codeumbau -> bessere optische Strukturierung)
 // (--> jetzt im Objekt zu finden als "gesamtbilanz")
 // let bilanz_einnahme = 0,
 //     bilanz_ausgabe = 0,
 //     bilanz = 0;
-//let bilanz = 206456 -5236; 
+// let bilanz = 206456 -5236; 
 
 
-//neues Objekt anlegen:
+// neues Objekt anlegen:
 const haushaltsbuch = {
     gesamtbilanz: {
         bilanz_einnahmen: 0,
@@ -74,7 +74,7 @@ haushaltsbuch.eintragHinzufuegen();
 haushaltsbuch.eintragHinzufuegen();
 
 
-//Umbau mit Funktionen (--> jetzt im Objekt zu finden als "neuer_eintrag")
+// Umbau mit Funktionen (--> jetzt im Objekt zu finden als "neuer_eintrag")
 // anonyme Funktion erstellen //zusammenfassende Schreibweise zur Deklaration von Variablen
 // let titel,
 //     typ,
@@ -82,10 +82,10 @@ haushaltsbuch.eintragHinzufuegen();
 //     datum;
 
 
-//Eingabedaten vom Nutzer holen ->
-//Anmerkung: ein prompt liefert immer einen String zurück!!
+// Eingabedaten vom Nutzer holen ->
+// Anmerkung: ein prompt liefert immer einen String zurück!!
 
-//Umbau mit Funktionen (--> jetzt im Objekt zu finden als "eintragErfassen()")
+// Umbau mit Funktionen (--> jetzt im Objekt zu finden als "eintragErfassen()")
 // const eintragErfassen = function () {
 //     titel = prompt("Wie heißt dein Eintrag?", "Gehalt");
 //     typ = prompt("Ist das eine Einnahme oder Ausgabe?");
@@ -93,7 +93,7 @@ haushaltsbuch.eintragHinzufuegen();
 //     datum = prompt("Datum? (jjjj-mm-tt)");
 // };
 
-//eintragErfassen();
+// eintragErfassen();
 
 
 // Datensatz 1
@@ -110,14 +110,14 @@ haushaltsbuch.eintragHinzufuegen();
 //     Datum: ${datum_1}`
 // );
 
-//Code an neue Variablen angepasst
+// Code an neue Variablen angepasst
 // console.log(`Titel: ${titel}
 //     Titeltyp: ${typ}
 //     Betrag: ${betrag} ct
 //     Datum: ${datum}`
 // );
 
-//Umbau mit Funktionen (--> jetzt im Objekt zu finden als "eintragAusgeben()")
+// Umbau mit Funktionen (--> jetzt im Objekt zu finden als "eintragAusgeben()")
 // const eintragAusgeben = function (titel, typ, betrag, datum) {
 //     console.log(`Titel: ${titel}
 // Titeltyp: ${typ}
@@ -154,7 +154,7 @@ haushaltsbuch.eintragHinzufuegen();
 
 // eintragMitGesamtBilanzVerrechnen(typ, betrag);
 
-// //Datensatz 2
+// Datensatz 2
 // -->Codeblock ist durch Funktion ersetzt
 // let titel_2 = prompt("Wie heißt dein Eintrag?", "Einkauf");
 // let titeltyp_2 = prompt("Ist das eine Einnahme oder Ausgabe?");
@@ -177,7 +177,7 @@ haushaltsbuch.eintragHinzufuegen();
 //     console.log(`Der Typ "${titeltyp_2}" ist nicht bekannt.`);
 // }
 
-//Gesamtbilanz ausgeben
+// Gesamtbilanz ausgeben
 
 // -->Codeblock ist durch Funktion ersetzt
 // let positiv = bilanz >= 0; //true
@@ -197,7 +197,7 @@ haushaltsbuch.eintragHinzufuegen();
 // gesamtBilanzAusgeben(bilanz_einnahmen, bilanz_ausgaben, bilanz);
 
 
-//alle Funktionen mit einer Funktion aufrufen  (--> jetzt im Objekt zu finden als "eintragHinzufuegen()")
+// alle Funktionen mit einer Funktion aufrufen  (--> jetzt im Objekt zu finden als "eintragHinzufuegen()")
 // const eintragHinzufuegen = function () {
 //     eintragErfassen();
 //     eintragAusgeben(titel, typ, betrag, datum);
