@@ -40,16 +40,33 @@ Betrag: ${this.neuer_eintrag.betrag} ct
 Datum: ${this.neuer_eintrag.datum}`
         )
     },
+    /*
+        eintragMitGesamtBilanzVerrechnen() {
+            if (this.neuer_eintrag.typ === "Einnahme") {
+                this.gesamtbilanz.bilanz_einnahmen += this.neuer_eintrag.betrag;
+                this.gesamtbilanz.bilanz += this.neuer_eintrag.betrag;
+            } else if (this.neuer_eintrag.typ === "Ausgabe") {
+                this.gesamtbilanz.bilanz_ausgaben += this.neuer_eintrag.betrag;
+                this.gesamtbilanz.bilanz -= this.neuer_eintrag.betrag;
+            } else {
+                console.log(`Der Typ "${this.neuer_eintrag.typ}" ist nicht bekannt.`);
+            }
+        },
+        */
 
     eintragMitGesamtBilanzVerrechnen() {
-        if (this.neuer_eintrag.typ === "Einnahme") {
-            this.gesamtbilanz.bilanz_einnahmen += this.neuer_eintrag.betrag;
-            this.gesamtbilanz.bilanz += this.neuer_eintrag.betrag;
-        } else if (this.neuer_eintrag.typ === "Ausgabe") {
-            this.gesamtbilanz.bilanz_ausgaben += this.neuer_eintrag.betrag;
-            this.gesamtbilanz.bilanz -= this.neuer_eintrag.betrag;
-        } else {
-            console.log(`Der Typ "${this.neuer_eintrag.typ}" ist nicht bekannt.`);
+        switch (this.neuer_eintrag.typ) {
+            case "Einnahme":
+                this.gesamtbilanz.bilanz_einnahmen += this.neuer_eintrag.betrag;
+                this.gesamtbilanz.bilanz += this.neuer_eintrag.betrag;
+                break;
+            case "Ausgabe":
+                this.gesamtbilanz.bilanz_ausgaben += this.neuer_eintrag.betrag;
+                this.gesamtbilanz.bilanz -= this.neuer_eintrag.betrag;
+                break;
+            default:
+                console.log(`Der Typ "${this.neuer_eintrag.typ}" ist nicht bekannt.`);
+                break;
         }
     },
 
