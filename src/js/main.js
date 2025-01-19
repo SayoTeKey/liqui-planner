@@ -19,27 +19,39 @@ const haushaltsbuch = {
         bilanz: 0
     },
 
-    neuer_eintrag: {
-        titel: null,  // immer wenn man etwas mit "nichts" leer definieren will, ist "null" eine gute Option, man könnte genauso gut einen leeren String verwenden
-        typ: null,
-        betrag: null,
-        datum: null
-    },
+    // neuer_eintrag: {
+    //     titel: null,  // immer wenn man etwas mit "nichts" leer definieren will, ist "null" eine gute Option, man könnte genauso gut einen leeren String verwenden
+    //     typ: null,
+    //     betrag: null,
+    //     datum: null
+    // },
+
+    eintraege: [],
+
 
     eintragErfassen() {
-        this.neuer_eintrag.titel = prompt("Wie heißt dein Eintrag?", "Gehalt");
-        this.neuer_eintrag.typ = prompt("Ist das eine Einnahme oder Ausgabe?");
-        this.neuer_eintrag.betrag = parseInt(prompt("Betrag (in Cent)?"));
-        this.neuer_eintrag.datum = prompt("Datum? (jjjj-mm-tt)");
+            this.eintraege.push({
+                titel: prompt("Wie heißt dein Eintrag?", "Gehalt"),
+                typ: prompt("Ist das eine Einnahme oder Ausgabe?"),
+                betrag: parseInt(prompt("Betrag (in Cent)?")),
+                datum: prompt("Datum? (jjjj-mm-tt)")
+            });
     },
 
-    eintragAusgeben() {
-        console.log(`Titel: ${this.neuer_eintrag.titel}
-Titeltyp: ${this.neuer_eintrag.typ}
-Betrag: ${this.neuer_eintrag.betrag} ct
-Datum: ${this.neuer_eintrag.datum}`
-        )
-    },
+    // eintragErfassen() {
+    //     this.neuer_eintrag.titel = prompt("Wie heißt dein Eintrag?", "Gehalt");
+    //     this.neuer_eintrag.typ = prompt("Ist das eine Einnahme oder Ausgabe?");
+    //     this.neuer_eintrag.betrag = parseInt(prompt("Betrag (in Cent)?"));
+    //     this.neuer_eintrag.datum = prompt("Datum? (jjjj-mm-tt)");
+    // },
+
+    //     eintragAusgeben() {
+    //         console.log(`Titel: ${this.neuer_eintrag.titel}
+    // Titeltyp: ${this.neuer_eintrag.typ}
+    // Betrag: ${this.neuer_eintrag.betrag} ct
+    // Datum: ${this.neuer_eintrag.datum}`
+    //         )
+    //     },
     /*
         eintragMitGesamtBilanzVerrechnen() {
             if (this.neuer_eintrag.typ === "Einnahme") {
@@ -54,39 +66,41 @@ Datum: ${this.neuer_eintrag.datum}`
         },
         */
 
-    eintragMitGesamtBilanzVerrechnen() {
-        switch (this.neuer_eintrag.typ) {
-            case "Einnahme":
-                this.gesamtbilanz.bilanz_einnahmen += this.neuer_eintrag.betrag;
-                this.gesamtbilanz.bilanz += this.neuer_eintrag.betrag;
-                break;
-            case "Ausgabe":
-                this.gesamtbilanz.bilanz_ausgaben += this.neuer_eintrag.betrag;
-                this.gesamtbilanz.bilanz -= this.neuer_eintrag.betrag;
-                break;
-            default:
-                console.log(`Der Typ "${this.neuer_eintrag.typ}" ist nicht bekannt.`);
-                break;
-        }
-    },
+    //     eintragMitGesamtBilanzVerrechnen() {
+    //         switch (this.neuer_eintrag.typ) {
+    //             case "Einnahme":
+    //                 this.gesamtbilanz.bilanz_einnahmen += this.neuer_eintrag.betrag;
+    //                 this.gesamtbilanz.bilanz += this.neuer_eintrag.betrag;
+    //                 break;
+    //             case "Ausgabe":
+    //                 this.gesamtbilanz.bilanz_ausgaben += this.neuer_eintrag.betrag;
+    //                 this.gesamtbilanz.bilanz -= this.neuer_eintrag.betrag;
+    //                 break;
+    //             default:
+    //                 console.log(`Der Typ "${this.neuer_eintrag.typ}" ist nicht bekannt.`);
+    //                 break;
+    //         }
+    //     },
 
-    gesamtBilanzAusgeben() {
-        console.log(`Einnahmen: ${this.gesamtbilanz.bilanz_einnahmen} ct
-Ausgaben: ${this.gesamtbilanz.bilanz_ausgaben} ct
-Bilanz: ${this.gesamtbilanz.bilanz} ct
-Bilanz ist positiv: ${this.gesamtbilanz.bilanz >= 0}`);
-    },
+    //     gesamtBilanzAusgeben() {
+    //         console.log(`Einnahmen: ${this.gesamtbilanz.bilanz_einnahmen} ct
+    // Ausgaben: ${this.gesamtbilanz.bilanz_ausgaben} ct
+    // Bilanz: ${this.gesamtbilanz.bilanz} ct
+    // Bilanz ist positiv: ${this.gesamtbilanz.bilanz >= 0}`);
+    //     },
 
     eintragHinzufuegen() {
         this.eintragErfassen();
-        this.eintragAusgeben();
-        this.eintragMitGesamtBilanzVerrechnen();
-        this.gesamtBilanzAusgeben();
+        // this.eintragAusgeben();
+        // this.eintragMitGesamtBilanzVerrechnen();
+        // this.gesamtBilanzAusgeben();
     }
 };
 
 
 haushaltsbuch.eintragHinzufuegen();
+console.log(haushaltsbuch);
+
 haushaltsbuch.eintragHinzufuegen();
 haushaltsbuch.eintragHinzufuegen();
 
