@@ -19,16 +19,11 @@ const haushaltsbuch = {
         bilanz: 0
     },
 
-    // neuer_eintrag: {
-    //     titel: null,  // immer wenn man etwas mit "nichts" leer definieren will, ist "null" eine gute Option, man könnte genauso gut einen leeren String verwenden
-    //     typ: null,
-    //     betrag: null,
-    //     datum: null
-    // },
-
+// Einträge zukünftig speichern können
     eintraege: [],
 
 
+// einen Eintrag hinzufügen
     eintragErfassen() {
         this.eintraege.push({
             titel: prompt("Wie heißt dein Eintrag?", "Gehalt"),
@@ -45,6 +40,14 @@ const haushaltsbuch = {
     //     this.neuer_eintrag.datum = prompt("Datum? (jjjj-mm-tt)");
     // },
 
+    // neuer_eintrag: {
+    //     titel: null,  // immer wenn man etwas mit "nichts" leer definieren will, ist "null" eine gute Option, man könnte genauso gut einen leeren String verwenden
+    //     typ: null,
+    //     betrag: null,
+    //     datum: null
+    // },
+
+    //Einträge anzeigen lassen
     eintraegeAusgeben() {
         console.clear();
         this.eintraege.forEach(function (eintrag) {
@@ -56,7 +59,6 @@ const haushaltsbuch = {
         });
     },
 
-
     //     eintragAusgeben() { (--> jetzt im Objekt zu finden als "eintraegeAusgeben() mit forEach")
     //         console.log(`Titel: ${this.neuer_eintrag.titel}
     // Titeltyp: ${this.neuer_eintrag.typ}
@@ -65,8 +67,7 @@ const haushaltsbuch = {
     //         )
     //     },
 
-
-
+    //Gesamtbilanz erstellen
     gesamtBilanzErstellen() {
         let neueGesamtBilanz = {
             einnahmen: 0,
@@ -91,7 +92,6 @@ const haushaltsbuch = {
         this.gesamtbilanz = neueGesamtBilanz;
 
     },
-
 
     //     eintragMitGesamtBilanzVerrechnen() {
     //         switch (this.neuer_eintrag.typ) {
@@ -121,7 +121,6 @@ const haushaltsbuch = {
     //     }
     // },
 
-
     //     gesamtBilanzAusgeben() {
     //         console.log(`Einnahmen: ${this.gesamtbilanz.bilanz_einnahmen} ct
     // Ausgaben: ${this.gesamtbilanz.bilanz_ausgaben} ct
@@ -129,14 +128,16 @@ const haushaltsbuch = {
     // Bilanz ist positiv: ${this.gesamtbilanz.bilanz >= 0}`);
     //     },
 
+
+    // eine Funktion die alle Methoden aufruft
     eintragHinzufuegen() {
         this.eintragErfassen();
         this.eintraegeAusgeben();
-       this.gesamtBilanzErstellen();
+        this.gesamtBilanzErstellen();
         // this.gesamtBilanzAusgeben();
     }
 };
-
+// Haushaltsbuch zur Korrektur auslesen 
 haushaltsbuch.eintragHinzufuegen();
 haushaltsbuch.eintragHinzufuegen();
 haushaltsbuch.eintragHinzufuegen();
