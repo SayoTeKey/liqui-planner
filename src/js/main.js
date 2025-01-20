@@ -30,12 +30,12 @@ const haushaltsbuch = {
 
 
     eintragErfassen() {
-            this.eintraege.push({
-                titel: prompt("Wie heißt dein Eintrag?", "Gehalt"),
-                typ: prompt("Ist das eine Einnahme oder Ausgabe?"),
-                betrag: parseInt(prompt("Betrag (in Cent)?")),
-                datum: prompt("Datum? (jjjj-mm-tt)")
-            });
+        this.eintraege.push({
+            titel: prompt("Wie heißt dein Eintrag?", "Gehalt"),
+            typ: prompt("Ist das eine Einnahme oder Ausgabe?"),
+            betrag: parseInt(prompt("Betrag (in Cent)?")),
+            datum: prompt("Datum? (jjjj-mm-tt)")
+        });
     },
 
     // eintragErfassen() {
@@ -45,26 +45,53 @@ const haushaltsbuch = {
     //     this.neuer_eintrag.datum = prompt("Datum? (jjjj-mm-tt)");
     // },
 
-    //     eintragAusgeben() {
+    eintraegeAusgeben() {
+        console.clear();
+        this.eintraege.forEach(function (eintrag) {
+            console.log(`Titel: ${eintrag.titel}\n`
+                + `Titeltyp: ${eintrag.typ}\n`
+                + `Betrag: ${eintrag.betrag} ct\n`
+                + `Datum: ${eintrag.datum}`
+            );
+        });
+    },
+
+
+    //     eintragAusgeben() { (--> jetzt im Objekt zu finden als "eintraegeAusgeben() mit forEach")
     //         console.log(`Titel: ${this.neuer_eintrag.titel}
     // Titeltyp: ${this.neuer_eintrag.typ}
     // Betrag: ${this.neuer_eintrag.betrag} ct
     // Datum: ${this.neuer_eintrag.datum}`
     //         )
     //     },
-    /*
-        eintragMitGesamtBilanzVerrechnen() {
-            if (this.neuer_eintrag.typ === "Einnahme") {
-                this.gesamtbilanz.bilanz_einnahmen += this.neuer_eintrag.betrag;
-                this.gesamtbilanz.bilanz += this.neuer_eintrag.betrag;
-            } else if (this.neuer_eintrag.typ === "Ausgabe") {
-                this.gesamtbilanz.bilanz_ausgaben += this.neuer_eintrag.betrag;
-                this.gesamtbilanz.bilanz -= this.neuer_eintrag.betrag;
-            } else {
-                console.log(`Der Typ "${this.neuer_eintrag.typ}" ist nicht bekannt.`);
+
+
+
+    gesamtBilanzErstellen() {
+        let neueGesamtBilanz = {
+            einnahmen: 0,
+            ausgaben: 0,
+            bilanz: 0
+        };
+        this.eintraege.forEach(function (eintrag) {
+            switch (eintrag.typ) {
+                case "Einnahme":
+                    neueGesamtBilanz.einnahmen += eintrag.betrag;
+                    neueGesamtBilanz.bilanz += eintrag.betrag;
+                    break;
+                case "Ausgabe":
+                    neueGesamtBilanz.bilanz_ausgaben += eintrag.betrag;
+                    neueGesamtBilanz.bilanz -= eintrag.betrag;
+                    break;
+                default:
+                    console.log(`Der Typ "${eintrag.typ}" ist nicht bekannt.`);
+                    break;
             }
-        },
-        */
+        });
+        this.gesamtbilanz = neueGesamtBilanz;
+
+    },
+
 
     //     eintragMitGesamtBilanzVerrechnen() {
     //         switch (this.neuer_eintrag.typ) {
@@ -82,6 +109,19 @@ const haushaltsbuch = {
     //         }
     //     },
 
+    // eintragMitGesamtBilanzVerrechnen() { (--> jetzt im Objekt zu finden als  Switch-Statement: "eintragMitGesamtBilanzVerrechnen()")
+    //     if (this.neuer_eintrag.typ === "Einnahme") {
+    //         this.gesamtbilanz.bilanz_einnahmen += this.neuer_eintrag.betrag;
+    //         this.gesamtbilanz.bilanz += this.neuer_eintrag.betrag;
+    //     } else if (this.neuer_eintrag.typ === "Ausgabe") {
+    //         this.gesamtbilanz.bilanz_ausgaben += this.neuer_eintrag.betrag;
+    //         this.gesamtbilanz.bilanz -= this.neuer_eintrag.betrag;
+    //     } else {
+    //         console.log(`Der Typ "${this.neuer_eintrag.typ}" ist nicht bekannt.`);
+    //     }
+    // },
+
+
     //     gesamtBilanzAusgeben() {
     //         console.log(`Einnahmen: ${this.gesamtbilanz.bilanz_einnahmen} ct
     // Ausgaben: ${this.gesamtbilanz.bilanz_ausgaben} ct
@@ -91,19 +131,17 @@ const haushaltsbuch = {
 
     eintragHinzufuegen() {
         this.eintragErfassen();
-        // this.eintragAusgeben();
-        // this.eintragMitGesamtBilanzVerrechnen();
+        this.eintraegeAusgeben();
+       this.gesamtBilanzErstellen();
         // this.gesamtBilanzAusgeben();
     }
 };
 
-
 haushaltsbuch.eintragHinzufuegen();
+haushaltsbuch.eintragHinzufuegen();
+haushaltsbuch.eintragHinzufuegen();
+
 console.log(haushaltsbuch);
-
-haushaltsbuch.eintragHinzufuegen();
-haushaltsbuch.eintragHinzufuegen();
-
 
 // Umbau mit Funktionen (--> jetzt im Objekt zu finden als "neuer_eintrag")
 // anonyme Funktion erstellen //zusammenfassende Schreibweise zur Deklaration von Variablen
