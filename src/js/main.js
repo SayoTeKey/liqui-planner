@@ -132,7 +132,7 @@ const haushaltsbuch = {
                     break;
                 case "Ausgabe":
                     neuegesamtBilanz.set("ausgaben", neuegesamtBilanz.get("ausgaben") + eintrag.get("betrag"));
-                    neuegesamtBilanz.set("bilanz", neuegesamtBilanz.get("bilanz") + eintrag.get("betrag"));
+                    neuegesamtBilanz.set("bilanz", neuegesamtBilanz.get("bilanz") - eintrag.get("betrag"));
 
                     neuegesamtBilanz.ausgaben += eintrag.get("betrag");
                     neuegesamtBilanz.bilanz -= eintrag.get("betrag");
@@ -201,10 +201,10 @@ const haushaltsbuch = {
     // },
 
     gesamtBilanzAusgeben() {
-        console.log(`Einnahmen: ${this.gesamtBilanz.einnahmen} ct\n`
-            + `Ausgaben: ${this.gesamtBilanz.ausgaben} ct\n`
-            + `Bilanz: ${this.gesamtBilanz.bilanz} ct\n`
-            + `Bilanz ist positiv: ${this.gesamtBilanz.bilanz >= 0}`);
+        console.log(`Einnahmen: ${this.gesamtBilanz.get("einnahmen")} ct\n`
+            + `Ausgaben: ${this.gesamtBilanz.get("ausgaben")} ct\n`
+            + `Bilanz: ${this.gesamtBilanz.get("bilanz")} ct\n`
+            + `Bilanz ist positiv: ${this.gesamtBilanz.get("bilanz") >= 0}`);
     },
 
     // eine Funktion die alle Methoden aufruft
