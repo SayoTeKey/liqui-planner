@@ -117,30 +117,60 @@ const haushaltsbuch = {
     //     },
 
     // gesamtBilanz erstellen
+
     gesamtBilanzErstellen() {
-        let neuegesamtBilanz = {
-            einnahmen: 0,
-            ausgaben: 0,
-            bilanz: 0
-        };
+        let neuegesamtBilanz = new Map();
+        neuegesamtBilanz.set("einnahmen", 0);
+        neuegesamtBilanz.set("ausgaben", 0);
+        neuegesamtBilanz.set("bilanz", 0);
+
         this.eintraege.forEach(function (eintrag) {
-            switch (eintrag.typ) {
+            switch (eintrag.get("typ")) {
                 case "Einnahme":
-                    neuegesamtBilanz.einnahmen += eintrag.betrag;
-                    neuegesamtBilanz.bilanz += eintrag.betrag;
+                    neuegesamtBilanz.set("einnahmen", neuegesamtBilanz.get("einnahmen") + eintrag.get("betrag"));
+                    neuegesamtBilanz.set("bilanz", neuegesamtBilanz.get("bilanz") + eintrag.get("betrag"));
                     break;
                 case "Ausgabe":
-                    neuegesamtBilanz.ausgaben += eintrag.betrag;
-                    neuegesamtBilanz.bilanz -= eintrag.betrag;
+                    neuegesamtBilanz.set("ausgaben", neuegesamtBilanz.get("ausgaben") + eintrag.get("betrag"));
+                    neuegesamtBilanz.set("bilanz", neuegesamtBilanz.get("bilanz") + eintrag.get("betrag"));
+
+                    neuegesamtBilanz.ausgaben += eintrag.get("betrag");
+                    neuegesamtBilanz.bilanz -= eintrag.get("betrag");
                     break;
                 default:
-                    console.log(`Der Typ "${eintrag.typ}" ist nicht bekannt.`);
+                    console.log(`Der Typ "${eintrag.get("typ")}" ist nicht bekannt.`);
                     break;
             }
         });
         this.gesamtBilanz = neuegesamtBilanz;
 
     },
+
+
+    // gesamtBilanzErstellen() {
+    //     let neuegesamtBilanz = {
+    //         einnahmen: 0,
+    //         ausgaben: 0,
+    //         bilanz: 0
+    //     };
+    //     this.eintraege.forEach(function (eintrag) {
+    //         switch (eintrag.typ) {
+    //             case "Einnahme":
+    //                 neuegesamtBilanz.einnahmen += eintrag.betrag;
+    //                 neuegesamtBilanz.bilanz += eintrag.betrag;
+    //                 break;
+    //             case "Ausgabe":
+    //                 neuegesamtBilanz.ausgaben += eintrag.betrag;
+    //                 neuegesamtBilanz.bilanz -= eintrag.betrag;
+    //                 break;
+    //             default:
+    //                 console.log(`Der Typ "${eintrag.typ}" ist nicht bekannt.`);
+    //                 break;
+    //         }
+    //     });
+    //     this.gesamtBilanz = neuegesamtBilanz;
+
+    // },
 
     // eintragMitgesamtBilanzVerrechnen() { (--> jetzt im Objekt zu finden als "gesamtBilanzErstellen()" mit "forEach()")
     //     switch (this.neuer_eintrag.typ) {
