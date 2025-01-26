@@ -31,12 +31,13 @@ const haushaltsbuch = {
 
     // einen Eintrag hinzufügen
 
-    eintragErfassen() { 
+    eintragErfassen() {
         let neuerEintrag = new Map();
         neuerEintrag.set("titel", prompt("Wie heißt dein Eintrag?", "Gehalt"));
         neuerEintrag.set("typ", prompt("Ist das eine Einnahme oder Ausgabe?"));
         neuerEintrag.set("betrag", parseInt(prompt("Betrag (in Cent)?")));
-        neuerEintrag.set("datum", prompt("Datum? (jjjj-mm-tt)"));
+        neuerEintrag.set("datum", new Date(prompt("Datum (jjjj-mm-tt):") + " 00:00:00"));
+        neuerEintrag.set("timeStamp", Date.now());
         this.eintraege.push(neuerEintrag);
     },
 
@@ -103,7 +104,12 @@ const haushaltsbuch = {
             console.log(`Titel: ${eintrag.get("titel")}\n`
                 + `Titeltyp: ${eintrag.get("typ")}\n`
                 + `Betrag: ${eintrag.get("betrag")} ct\n`
-                + `Datum: ${eintrag.get("datum")}`
+                + `Datum: ${eintrag.get("datum").toLocaleDateString("de-DE", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit"
+                })}\n`
+                + `Zeitstempel: ${eintrag.get("timeStamp")}`
             );
         });
     },
