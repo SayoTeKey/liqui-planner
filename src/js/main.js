@@ -33,15 +33,16 @@ const haushaltsbuch = {
 
     eintragErfassen() {
         let neuerEintrag = new Map();
-        neuerEintrag.set("titel", prompt("Wie heißt dein Eintrag?", "Gehalt"));
-        neuerEintrag.set("typ", prompt("Ist das eine Einnahme oder Ausgabe?"));
-        neuerEintrag.set("betrag", this.betragVerarbeiten(prompt("Betrag (in Euro, ohne €-Zeichen)?")));
-        neuerEintrag.set("datum", new Date(prompt("Datum (jjjj-mm-tt):") + " 00:00:00"));
+        neuerEintrag.set("titel", prompt("Wie heißt dein Eintrag?", "Gehalt").trim());
+        neuerEintrag.set("typ", prompt("Ist das eine Einnahme oder Ausgabe?").trim());
+        neuerEintrag.set("betrag", this.betragVerarbeiten(prompt("Betrag (in Euro, ohne €-Zeichen)?")).trim());
+        neuerEintrag.set("datum", new Date(prompt("Datum (jjjj-mm-tt):") + " 00:00:00").trim());
         neuerEintrag.set("timeStamp", Date.now());
         this.eintraege.push(neuerEintrag);
     },
 
-    betragVerarbeiten(betrag) {// "22,35"
+    betragVerarbeiten(betrag) {
+        // Bsp.: "22,35" -> "23.35" -> 23.35 -> 2335
         return parseFloat(betrag.replace(",", ".")) * 100;
     },
 
