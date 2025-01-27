@@ -35,12 +35,15 @@ const haushaltsbuch = {
         let neuerEintrag = new Map();
         neuerEintrag.set("titel", prompt("Wie heißt dein Eintrag?", "Gehalt"));
         neuerEintrag.set("typ", prompt("Ist das eine Einnahme oder Ausgabe?"));
-        neuerEintrag.set("betrag", parseInt(prompt("Betrag (in Cent)?")));
+        neuerEintrag.set("betrag", this.betragVerarbeiten(prompt("Betrag (in Euro, ohne €-Zeichen)?")));
         neuerEintrag.set("datum", new Date(prompt("Datum (jjjj-mm-tt):") + " 00:00:00"));
         neuerEintrag.set("timeStamp", Date.now());
         this.eintraege.push(neuerEintrag);
     },
 
+    betragVerarbeiten(betrag) {// "22,35"
+        return parseFloat(betrag.replace(",", ".")) * 100;
+    },
 
     // eintragErfassen() { ( --> jetzt zu finden im Objekt als "eintragErfassen(), als MAP")
     //     this.eintraege.push({
@@ -103,7 +106,7 @@ const haushaltsbuch = {
         this.eintraege.forEach(function (eintrag) {
             console.log(`Titel: ${eintrag.get("titel")}\n`
                 + `Titeltyp: ${eintrag.get("typ")}\n`
-                + `Betrag: ${eintrag.get("betrag")} ct\n`
+                + `Betrag: ${(eintrag.get("betrag") / 100).toFixed(2)} €\n`
                 + `Datum: ${eintrag.get("datum").toLocaleDateString("de-DE", {
                     year: "numeric",
                     month: "2-digit",
@@ -207,10 +210,11 @@ const haushaltsbuch = {
     // },
 
     gesamtBilanzAusgeben() {
-        console.log(`Einnahmen: ${this.gesamtBilanz.get("einnahmen")} ct\n`
-            + `Ausgaben: ${this.gesamtBilanz.get("ausgaben")} ct\n`
-            + `Bilanz: ${this.gesamtBilanz.get("bilanz")} ct\n`
-            + `Bilanz ist positiv: ${this.gesamtBilanz.get("bilanz") >= 0}`);
+        console.log(`Einnahmen: ${(this.gesamtBilanz.get("einnahmen") / 100).toFixed(2)} €\n`
+            + `Ausgaben: ${(this.gesamtBilanz.get("ausgaben") / 100).toFixed(2)} €\n`
+            + `Bilanz: ${(this.gesamtBilanz.get("bilanz") / 100).toFixed(2)} €\n`
+            + `Bilanz ist positiv: ${(this.gesamtBilanz.get("bilanz") / 100) >= 0}`
+        );
     },
 
     // eine Funktion die alle Methoden aufruft
