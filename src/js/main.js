@@ -35,8 +35,8 @@ const haushaltsbuch = {
         let neuerEintrag = new Map();
         neuerEintrag.set("titel", prompt("Wie heißt dein Eintrag?", "Gehalt").trim());
         neuerEintrag.set("typ", prompt("Ist das eine Einnahme oder Ausgabe?").trim());
-        neuerEintrag.set("betrag", this.betragVerarbeiten(prompt("Betrag (in Euro, ohne €-Zeichen)?")).trim());
-        neuerEintrag.set("datum", new Date(prompt("Datum (jjjj-mm-tt):") + " 00:00:00").trim());
+        neuerEintrag.set("betrag", this.betragVerarbeiten(prompt("Betrag (in Euro, ohne €-Zeichen)?").trim()));
+        neuerEintrag.set("datum", this.datumVerarbeiten(prompt("Datum (jjjj-mm-tt):").trim()));
         neuerEintrag.set("timeStamp", Date.now());
         this.eintraege.push(neuerEintrag);
     },
@@ -54,8 +54,27 @@ const haushaltsbuch = {
         //Prüfen auf korrektes Betragsformat
         if (this.betragValidieren(betrag)) {
             return parseFloat(betrag.replace(",", ".")) * 100;
-        } else{
+        } else {
             console.log(`Ungültiger Betrag: ${betrag} €. Bitte erneut eingeben!`);
+            return false;
+        }
+    },
+
+    datumValidieren(datum) {
+        if (datum.match(/^\d{4}-\d{2}-\d{2}$/) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+
+    datumVerarbeiten(datum) {
+        // Bsp.: "22,35" -> "23.35" -> 23.35 -> 2335
+        //Prüfen auf korrektes Datumsformat
+        if (this.datumValidieren(datum)) {
+            return new Date(`${datum} 00:00:00`);
+        } else {
+            console.log(`Ungültiges Datumsformat: ${datum}. Bitte erneut eingeben!`);
             return false;
         }
     },
