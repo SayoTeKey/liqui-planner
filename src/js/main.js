@@ -41,9 +41,23 @@ const haushaltsbuch = {
         this.eintraege.push(neuerEintrag);
     },
 
+    betragValidieren(betrag) {
+        if (betrag.match(/^\d+(?:(?:,|\.)\d\d?)?$/) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+
     betragVerarbeiten(betrag) {
         // Bsp.: "22,35" -> "23.35" -> 23.35 -> 2335
-        return parseFloat(betrag.replace(",", ".")) * 100;
+        //Prüfen auf korrektes Betragsformat
+        if (this.betragValidieren(betrag)) {
+            return parseFloat(betrag.replace(",", ".")) * 100;
+        } else{
+            console.log(`Ungültiger Betrag: ${betrag} €. Bitte erneut eingeben!`);
+            return false;
+        }
     },
 
     // eintragErfassen() { ( --> jetzt zu finden im Objekt als "eintragErfassen(), als MAP")
