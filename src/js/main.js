@@ -33,12 +33,51 @@ const haushaltsbuch = {
 
     eintragErfassen() {
         let neuerEintrag = new Map();
-        neuerEintrag.set("titel", prompt("Wie heißt dein Eintrag?", "Gehalt"));
-        neuerEintrag.set("typ", prompt("Ist das eine Einnahme oder Ausgabe?").trim());
+        neuerEintrag.set("titel", this.titelVerarbeiten(prompt("Wie heißt dein Eintrag?", "Gehalt")));
+        neuerEintrag.set("typ", this.typVerarbeiten(prompt("Ist das eine Einnahme oder Ausgabe?")));
         neuerEintrag.set("betrag", this.betragVerarbeiten(prompt("Betrag (in Euro, ohne €-Zeichen)?")));
         neuerEintrag.set("datum", this.datumVerarbeiten(prompt("Datum (jjjj-mm-tt):").trim()));
         neuerEintrag.set("timeStamp", Date.now());
         this.eintraege.push(neuerEintrag);
+    },
+
+    titelValidieren(titel) {
+        if (titel != "") {
+            return true;
+        } else {
+            return false;
+        }
+    },
+
+    titelVerarbeiten(titel) {
+        titel = titel.trim();
+        // Bsp.: "22,35" -> "23.35" -> 23.35 -> 2335
+        //Prüfen auf korrektes Betragsformat
+        if (this.titelValidieren(titel)) {
+            return titel;
+        } else {
+            console.log("Keinen Titel angegeben.");
+            return false;
+        }
+    },
+
+    typValidieren(typ) {
+        if (typ.match(/(?:einnahme|ausgabe)$/i) != null) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+
+    typVerarbeiten(typ) {
+        typ = typ.trim().toLowerCase();
+        //Prüfen auf korrekten Typ
+        if (this.typValidieren(typ)) {
+            return typ;
+        } else {
+            console.log(`Ungültiger Eintrags-Typ: ${typ}. Bitte erneut eingeben!`);
+            return false;
+        }
     },
 
     betragValidieren(betrag) {
@@ -76,7 +115,7 @@ const haushaltsbuch = {
         if (this.datumValidieren(datum)) {
             return new Date(`${datum} 00:00:00`);
         } else {
-            console.log(`Ungültiges Datumsformat: ${datum}. Bitte erneut eingeben!`);
+            console.log(`Ungültiges Datumsformat: "${datum}". Bitte erneut eingeben!`);
             return false;
         }
     },
@@ -171,11 +210,11 @@ const haushaltsbuch = {
 
         this.eintraege.forEach(function (eintrag) {
             switch (eintrag.get("typ")) {
-                case "Einnahme":
+                case "einnahme":
                     neuegesamtBilanz.set("einnahmen", neuegesamtBilanz.get("einnahmen") + eintrag.get("betrag"));
                     neuegesamtBilanz.set("bilanz", neuegesamtBilanz.get("bilanz") + eintrag.get("betrag"));
                     break;
-                case "Ausgabe":
+                case "ausgabe":
                     neuegesamtBilanz.set("ausgaben", neuegesamtBilanz.get("ausgaben") + eintrag.get("betrag"));
                     neuegesamtBilanz.set("bilanz", neuegesamtBilanz.get("bilanz") - eintrag.get("betrag"));
 
