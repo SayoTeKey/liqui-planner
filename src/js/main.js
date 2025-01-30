@@ -28,6 +28,8 @@ const haushaltsbuch = {
     // Einträge zukünftig speichern können
     eintraege: [],
 
+    // Fehler zukünftig abfangen, bevor sie ausgegeben werden
+    fehler: [],
 
     // einen Eintrag hinzufügen
 
@@ -38,7 +40,18 @@ const haushaltsbuch = {
         neuerEintrag.set("betrag", this.betragVerarbeiten(prompt("Betrag (in Euro, ohne €-Zeichen)?")));
         neuerEintrag.set("datum", this.datumVerarbeiten(prompt("Datum (jjjj-mm-tt):").trim()));
         neuerEintrag.set("timeStamp", Date.now());
-        this.eintraege.push(neuerEintrag);
+        if (this.fehler.length === 0) {
+            this.eintraege.push(neuerEintrag);
+        } else {
+            console.log("Folgende Fehler wurden gefunden:");
+
+            this.fehler.forEach(function (fehler) {
+                console.log(fehler);
+
+            });
+        }
+
+
     },
 
     titelValidieren(titel) {
@@ -56,8 +69,8 @@ const haushaltsbuch = {
         if (this.titelValidieren(titel)) {
             return titel;
         } else {
-            console.log("Keinen Titel angegeben.");
-            return false;
+            //console.log("Keinen Titel angegeben.");
+            this.fehler.push("Keinen Titel angegeben."); // abfangen von Fehlern
         }
     },
 
@@ -75,8 +88,8 @@ const haushaltsbuch = {
         if (this.typValidieren(typ)) {
             return typ;
         } else {
-            console.log(`Ungültiger Eintrags-Typ: ${typ}. Bitte erneut eingeben!`);
-            return false;
+            //console.log(`Ungültiger Eintrags-Typ: ${typ}. Bitte erneut eingeben!`);
+            this.fehler.push(`Ungültiger Eintrags-Typ: ${typ}. Bitte erneut eingeben!`);  // abfangen von Fehlern
         }
     },
 
@@ -95,8 +108,8 @@ const haushaltsbuch = {
         if (this.betragValidieren(betrag)) {
             return parseFloat(betrag.replace(",", ".")) * 100;
         } else {
-            console.log(`Ungültiger Betrag: ${betrag} €. Bitte erneut eingeben!`);
-            return false;
+            // console.log(`Ungültiger Betrag: ${betrag} €. Bitte erneut eingeben!`);
+            this.fehler.push(`Ungültiger Betrag: ${betrag} €. Bitte erneut eingeben!`);  // abfangen von Fehlern
         }
     },
 
@@ -115,8 +128,8 @@ const haushaltsbuch = {
         if (this.datumValidieren(datum)) {
             return new Date(`${datum} 00:00:00`);
         } else {
-            console.log(`Ungültiges Datumsformat: "${datum}". Bitte erneut eingeben!`);
-            return false;
+            // console.log(`Ungültiges Datumsformat: "${datum}". Bitte erneut eingeben!`);
+            this.fehler.push(`Ungültiges Datumsformat: "${datum}". Bitte erneut eingeben!`);  // abfangen von Fehlern
         }
     },
 
@@ -297,10 +310,15 @@ const haushaltsbuch = {
         let weiterer_eintrag = true;
         while (weiterer_eintrag) {
             this.eintragErfassen();
-            this.eintraegeSortieren();
-            this.eintraegeAusgeben();
-            this.gesamtBilanzErstellen();
-            this.gesamtBilanzAusgeben();
+            if (this.fehler.length === 0) {
+                this.eintraegeSortieren();
+                this.eintraegeAusgeben();
+                this.gesamtBilanzErstellen();
+                this.gesamtBilanzAusgeben();
+            } else {
+                this.fehler = [];
+            }
+
             weiterer_eintrag = confirm("Weiteren Eintrag hinzufügen?");
             //confirm (=bestätige : "Weiteren Eintrag hinzufügen?")
         }
