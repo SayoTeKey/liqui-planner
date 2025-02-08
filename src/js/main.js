@@ -240,14 +240,23 @@ const haushaltsbuch = {
     // htmlEintraegeGenerieren(eintrag)
 
     eintraegeAnzeigen() {
-        // überprüfen, ob eine <ul> bereits vorhande ist
+        // überprüfen, ob eine <ul> bereits vorhanden ist
         // ggf. <ul> entfernen
 
+        document.querySelectorAll(".monatsliste ul").forEach(function (eintragsliste) {
+            eintragsliste.remove();
+        });
         // <ul> erstellen
+        let eintragsliste = document.createElement("ul");
         // über eintraege [] itterieren
         // für jeden Eintrag einen HTML-Eintrag erstellen
         // HTML-Eintrag in <ul> einsetzen
-        // >ul> in den article.monatsliste einsetzen
+        for (let eintrag of this.eintraege) {
+            eintragsliste.insertAdjacentElement("beforeend", this.htmlEintragGenerieren(eintrag));
+            // <ul> in den article.monatsliste einsetzen
+            document.querySelector(".monatsliste").insertAdjacentElement("afterbegin", eintragsliste);
+
+        }
     },
 
 
@@ -354,7 +363,7 @@ const haushaltsbuch = {
             if (this.fehler.length === 0) {
                 // Methodenaufrufe anpassen
                 this.eintraegeSortieren();
-                this.eintraegeAusgeben();
+                this.eintraegeAnzeigen();
                 this.gesamtBilanzErstellen();
                 this.gesamtBilanzAusgeben();
             } else {
