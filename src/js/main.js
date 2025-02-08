@@ -47,11 +47,8 @@ const haushaltsbuch = {
 
             this.fehler.forEach(function (fehler) {
                 console.log(fehler);
-
             });
         }
-
-
     },
 
     titelValidieren(titel) {
@@ -75,7 +72,7 @@ const haushaltsbuch = {
     },
 
     typValidieren(typ) {
-        if (typ.match(/(?:einnahme|ausgabe)$/i) != null) {
+        if (typ.match(/^(?:einnahme|ausgabe)$/i) != null) {
             return true;
         } else {
             return false;
@@ -187,57 +184,49 @@ const haushaltsbuch = {
     //     betrag,
     //     datum;
 
+    htmlEintragGenerieren(eintrag) {
 
-    // wird durch HTML - Ausgabe ersetzt    
-    // Einträge anzeigen lassen
-    eintraegeAusgeben() {
-        console.clear(); // Konsole leeren um doppelte Einträge zu vermeiden
-        this.eintraege.forEach(function (eintrag) {
-            console.log(`Titel: ${eintrag.get("titel")}\n`
-                + `Titeltyp: ${eintrag.get("typ")}\n`
-                + `Betrag: ${(eintrag.get("betrag") / 100).toFixed(2)} €\n`
-                + `Datum: ${eintrag.get("datum").toLocaleDateString("de-DE", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit"
-                })}\n`
-                + `Zeitstempel: ${eintrag.get("timeStamp")}`
-            );
+        let listenpunkt = document.createElement("li");
+        if (eintrag.get("typ") === "einnahme") {
+            listenpunkt.setAttribute("class", "einnahme");
+        } else if (eintrag.get("typ") === "ausgabe") {
+            listenpunkt.setAttribute("class", "ausgabe");
+        }
+        listenpunkt.setAttribute("data-timestamp", eintrag.get("timestamp"));
+
+        // datum-span
+        let datum = document.createElement("span");
+        datum.setAttribute("class", "datum");
+        datum.textContent = eintrag.get("datum").toLocaleDateString("de-DE", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
         });
+        listenpunkt.insertAdjacentElement("afterbegin", datum);
+
+        // titel-span
+        let titel = document.createElement("span");
+        titel.setAttribute("class", "titel");
+        titel.textContent = eintrag.get("titel");
+        datum.insertAdjacentElement("afterend", titel);
+
+        // betrag-span
+        let betrag = document.createElement("span");
+        betrag.setAttribute("class", "betrag");
+        betrag.textContent = `${(eintrag.get("betrag") / 100).toFixed(2).replace(".", ",")}€`;
+        titel.insertAdjacentElement("afterend", betrag);
+
+        // button
+        let button = document.createElement("button");
+        button.setAttribute("class", "entfernen-button");
+        betrag.insertAdjacentElement("afterend", button);
+
+        let icon = document.createElement("i");
+        icon.setAttribute("class", "fas fa-trash");
+        button.insertAdjacentElement("afterbegin", icon);
+
+        return listenpunkt;
     },
-
-    // just for help as comment
-    //     <ul >
-    //     <li class="ausgabe">
-    //     <span class="datum">03.02.2020</span>
-    //     <span class="titel">Miete</span>
-    //     <span class="betrag">545,00 €</span>
-    //     <button class="entfernen-button">
-    //       <i class="fas fa-trash"></i>
-    //     </button>
-    //   </li>
-    //   <li class="einnahme">
-    //     <span class="datum">01.02.2020</span>
-    //     <span class="titel">Gehalt</span>
-    //     <span class="betrag">2064,37 €</span>
-    //     <button class="entfernen-button">
-    //       <i class="fas fa-trash"></i>
-    //     </button>
-    //   </li>
-    // </ul >
-
-    //     eintragAusgeben() { (--> jetzt im Objekt zu finden als "eintraegeAusgeben()" mit "forEach")
-    //         console.log(`Titel: ${this.neuer_eintrag.titel}
-    // Titeltyp: ${this.neuer_eintrag.typ}
-    // Betrag: ${this.neuer_eintrag.betrag} ct
-    // Datum: ${this.neuer_eintrag.datum}`
-    //         )
-    //     },
-
-    // gesamtBilanz erstellen
-
-
-    // htmlEintraegeGenerieren(eintrag)
 
     eintraegeAnzeigen() {
         // überprüfen, ob eine <ul> bereits vorhanden ist
@@ -254,11 +243,57 @@ const haushaltsbuch = {
         for (let eintrag of this.eintraege) {
             eintragsliste.insertAdjacentElement("beforeend", this.htmlEintragGenerieren(eintrag));
             // <ul> in den article.monatsliste einsetzen
-            document.querySelector(".monatsliste").insertAdjacentElement("afterbegin", eintragsliste);
-
         }
+        document.querySelector(".monatsliste").insertAdjacentElement("afterbegin", eintragsliste);
     },
 
+    // Einträge anzeigen lassen  (--> wird durch HTML-Ausgabe ersetzt )
+    // eintraegeAusgeben() {
+    //     console.clear(); // Konsole leeren um doppelte Einträge zu vermeiden
+    //     this.eintraege.forEach(function (eintrag) {
+    //         console.log(`Titel: ${eintrag.get("titel")}\n`
+    //             + `Titeltyp: ${eintrag.get("typ")}\n`
+    //             + `Betrag: ${(eintrag.get("betrag") / 100).toFixed(2)} €\n`
+    //             + `Datum: ${eintrag.get("datum").toLocaleDateString("de-DE", {
+    //                 year: "numeric",
+    //                 month: "2-digit",
+    //                 day: "2-digit"
+    //             })}\n`
+    //             + `Zeitstempel: ${eintrag.get("timeStamp")}`
+    //         );
+    //     });
+    // },
+
+    //     eintragAusgeben() { (--> jetzt im Objekt zu finden als "eintraegeAusgeben()" mit "forEach")
+    //         console.log(`Titel: ${this.neuer_eintrag.titel}
+    // Titeltyp: ${this.neuer_eintrag.typ}
+    // Betrag: ${this.neuer_eintrag.betrag} ct
+    // Datum: ${this.neuer_eintrag.datum}`
+    //         )
+    //     },
+
+    // just for help as comment
+    //     <ul >
+    //     <li class="ausgabe" data-timestamp="1843796313958">
+    //     <span class="datum">03.02.2020</span>
+    //     <span class="titel">Miete</span>
+    //     <span class="betrag">545,00 €</span>
+    //     <button class="entfernen-button">
+    //       <i class="fas fa-trash"></i>
+    //     </button>
+    //   </li>
+    //   <li class="einnahme" data-timestamp="1843796313954">
+    //     <span class="datum">01.02.2020</span>
+    //     <span class="titel">Gehalt</span>
+    //     <span class="betrag">2064,37 €</span>
+    //     <button class="entfernen-button">
+    //       <i class="fas fa-trash"></i>
+    //     </button>
+    //   </li>
+    // </ul >
+
+
+    // gesamtBilanz erstellen
 
     gesamtBilanzErstellen() {
         let neuegesamtBilanz = new Map();
@@ -365,7 +400,7 @@ const haushaltsbuch = {
                 this.eintraegeSortieren();
                 this.eintraegeAnzeigen();
                 this.gesamtBilanzErstellen();
-                this.gesamtBilanzAusgeben();
+                // this.gesamtBilanzAusgeben();
             } else {
                 this.fehler = [];
             }
