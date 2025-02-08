@@ -292,7 +292,6 @@ const haushaltsbuch = {
     //   </li>
     // </ul >
 
-
     // gesamtBilanz erstellen
 
     gesamtBilanzErstellen() {
@@ -322,7 +321,6 @@ const haushaltsbuch = {
         this.gesamtBilanz = neuegesamtBilanz;
 
     },
-
 
     // gesamtBilanzErstellen() {
     //     let neuegesamtBilanz = {
@@ -377,19 +375,41 @@ const haushaltsbuch = {
     //     }
     // },
 
-
     // wird durch HTML - Ausgabe ersetzt
-    gesamtBilanzAusgeben() {
-        console.log(`Einnahmen: ${(this.gesamtBilanz.get("einnahmen") / 100).toFixed(2)} €\n`
-            + `Ausgaben: ${(this.gesamtBilanz.get("ausgaben") / 100).toFixed(2)} €\n`
-            + `Bilanz: ${(this.gesamtBilanz.get("bilanz") / 100).toFixed(2)} €\n`
-            + `Bilanz ist positiv: ${(this.gesamtBilanz.get("bilanz") / 100) >= 0}`
-        );
+    // gesamtBilanzAusgeben() {
+    //     console.log(`Einnahmen: ${(this.gesamtBilanz.get("einnahmen") / 100).toFixed(2)} €\n`
+    //         + `Ausgaben: ${(this.gesamtBilanz.get("ausgaben") / 100).toFixed(2)} €\n`
+    //         + `Bilanz: ${(this.gesamtBilanz.get("bilanz") / 100).toFixed(2)} €\n`
+    //         + `Bilanz ist positiv: ${(this.gesamtBilanz.get("bilanz") / 100) >= 0}`
+    //     );
+    // },
+
+    //     <aside id="gesamtbilanz">
+    //     <h1>Gesamtbilanz</h1>
+    //     <div class="gesamtbilanz-zeile einnahmen">
+    //       <span>Einnahmen:</span><span>0,00€</span>
+    //     </div>
+    //     <div class="gesamtbilanz-zeile ausgaben">
+    //       <span>Ausgaben:</span><span>0,00€</span>
+    //     </div>
+    //     <div class="gesamtbilanz-zeile bilanz">
+    //       <span>Bilanz:</span><span class="positiv">0,00€</span>
+    //     </div>
+    //   </aside>
+
+    // htmlGesamtBilanzGenerieren()
+    // anhand der aktuellen Gesamtbilanz die Gesamtbilanz neu generieren
+
+    gesamtBilanzAnzeigen() {
+        // prüfen, ob bereits Gesamtbilanz angezeigt wird
+        document.querySelectorAll("#gesamtbilanz").forEach(function (gesamtbilanz) {
+            // ggf. Gesamtbilanz entfernen
+            gesamtbilanz.remove();
+        });
+        document.querySelector("body").insertAdjacentElement("beforeend", this.htmlEintragGenerieren());
+
+        // neue Gesamtbilanz anzeigen (htmlGesamtBilanzGenerieren())
     },
-    // htmlGesamtBilanzGenerieren())
-
-    // gesamtBilanzAnzeigen()
-
     // eine Funktion die alle Methoden aufruft
     eintragHinzufuegen() {
         let weiterer_eintrag = true;
@@ -400,7 +420,7 @@ const haushaltsbuch = {
                 this.eintraegeSortieren();
                 this.eintraegeAnzeigen();
                 this.gesamtBilanzErstellen();
-                // this.gesamtBilanzAusgeben();
+                this.gesamtBilanzAnzeigen();
             } else {
                 this.fehler = [];
             }
