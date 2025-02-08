@@ -188,6 +188,7 @@ const haushaltsbuch = {
     //     datum;
 
 
+    // wird durch HTML - Ausgabe ersetzt    
     // Einträge anzeigen lassen
     eintraegeAusgeben() {
         console.clear(); // Konsole leeren um doppelte Einträge zu vermeiden
@@ -205,6 +206,26 @@ const haushaltsbuch = {
         });
     },
 
+    // just for help as comment
+    //     <ul >
+    //     <li class="ausgabe">
+    //     <span class="datum">03.02.2020</span>
+    //     <span class="titel">Miete</span>
+    //     <span class="betrag">545,00 €</span>
+    //     <button class="entfernen-button">
+    //       <i class="fas fa-trash"></i>
+    //     </button>
+    //   </li>
+    //   <li class="einnahme">
+    //     <span class="datum">01.02.2020</span>
+    //     <span class="titel">Gehalt</span>
+    //     <span class="betrag">2064,37 €</span>
+    //     <button class="entfernen-button">
+    //       <i class="fas fa-trash"></i>
+    //     </button>
+    //   </li>
+    // </ul >
+
     //     eintragAusgeben() { (--> jetzt im Objekt zu finden als "eintraegeAusgeben()" mit "forEach")
     //         console.log(`Titel: ${this.neuer_eintrag.titel}
     // Titeltyp: ${this.neuer_eintrag.typ}
@@ -214,6 +235,21 @@ const haushaltsbuch = {
     //     },
 
     // gesamtBilanz erstellen
+
+
+    // htmlEintraegeGenerieren(eintrag)
+
+    eintraegeAnzeigen() {
+        // überprüfen, ob eine <ul> bereits vorhande ist
+        // ggf. <ul> entfernen
+
+        // <ul> erstellen
+        // über eintraege [] itterieren
+        // für jeden Eintrag einen HTML-Eintrag erstellen
+        // HTML-Eintrag in <ul> einsetzen
+        // >ul> in den article.monatsliste einsetzen
+    },
+
 
     gesamtBilanzErstellen() {
         let neuegesamtBilanz = new Map();
@@ -297,6 +333,8 @@ const haushaltsbuch = {
     //     }
     // },
 
+
+    // wird durch HTML - Ausgabe ersetzt
     gesamtBilanzAusgeben() {
         console.log(`Einnahmen: ${(this.gesamtBilanz.get("einnahmen") / 100).toFixed(2)} €\n`
             + `Ausgaben: ${(this.gesamtBilanz.get("ausgaben") / 100).toFixed(2)} €\n`
@@ -304,6 +342,9 @@ const haushaltsbuch = {
             + `Bilanz ist positiv: ${(this.gesamtBilanz.get("bilanz") / 100) >= 0}`
         );
     },
+    // htmlGesamtBilanzGenerieren())
+
+    // gesamtBilanzAnzeigen()
 
     // eine Funktion die alle Methoden aufruft
     eintragHinzufuegen() {
@@ -311,6 +352,7 @@ const haushaltsbuch = {
         while (weiterer_eintrag) {
             this.eintragErfassen();
             if (this.fehler.length === 0) {
+                // Methodenaufrufe anpassen
                 this.eintraegeSortieren();
                 this.eintraegeAusgeben();
                 this.gesamtBilanzErstellen();
