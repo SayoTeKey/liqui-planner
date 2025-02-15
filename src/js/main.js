@@ -4,19 +4,19 @@
 // console.log("206456");
 
 
-// gesamtBilanz
+// gesamtbilanz
 // neues Objekt anlegen:
 const haushaltsbuch = {
 
-    gesamtBilanz: new Map(),
+    gesamtbilanz: new Map(),
 
-    // gesamtBilanz: { (--> jetzt im Objekt als MAP zu finden)
+    // gesamtbilanz: { (--> jetzt im Objekt als MAP zu finden)
     //     einnahmen: 0,
     //     ausgaben: 0,
     //     bilanz: 0
     // },
 
-    // (Codeumbau --> bessere optische Strukturierung) (--> jetzt im Objekt zu finden als "gesamtBilanz")
+    // (Codeumbau --> bessere optische Strukturierung) (--> jetzt im Objekt zu finden als "gesamtbilanz")
     // let bilanz_einnahme = 0,
     //     bilanz_ausgabe = 0,
     //     bilanz = 0;
@@ -111,7 +111,7 @@ const haushaltsbuch = {
     },
 
     datumValidieren(datum) {
-        if (datum.match(/^\d{4}-\d{2}-\d{2}$/) != null) {
+        if (datum.match(/^\d{4}-\d{2}-\d{2}$/) !== null) {
             return true;
         } else {
             return false;
@@ -145,7 +145,7 @@ const haushaltsbuch = {
             if (eintragA.get("datum") > eintragB.get("datum")) {
                 return -1;
             } else if (eintragA.get("datum") < eintragB.get("datum")) {
-                return 1
+                return 1;
             } else {
                 return 0;
             }
@@ -292,38 +292,38 @@ const haushaltsbuch = {
     //   </li>
     // </ul >
 
-    // gesamtBilanz erstellen
+    // gesamtbilanz erstellen
 
-    gesamtBilanzErstellen() {
-        let neuegesamtBilanz = new Map();
-        neuegesamtBilanz.set("einnahmen", 0);
-        neuegesamtBilanz.set("ausgaben", 0);
-        neuegesamtBilanz.set("bilanz", 0);
+    gesamtbilanzErstellen() {
+        let neuegesamtbilanz = new Map();
+        neuegesamtbilanz.set("einnahmen", 0);
+        neuegesamtbilanz.set("ausgaben", 0);
+        neuegesamtbilanz.set("bilanz", 0);
 
         this.eintraege.forEach(function (eintrag) {
             switch (eintrag.get("typ")) {
                 case "einnahme":
-                    neuegesamtBilanz.set("einnahmen", neuegesamtBilanz.get("einnahmen") + eintrag.get("betrag"));
-                    neuegesamtBilanz.set("bilanz", neuegesamtBilanz.get("bilanz") + eintrag.get("betrag"));
+                    neuegesamtbilanz.set("einnahmen", neuegesamtbilanz.get("einnahmen") + eintrag.get("betrag"));
+                    neuegesamtbilanz.set("bilanz", neuegesamtbilanz.get("bilanz") + eintrag.get("betrag"));
                     break;
                 case "ausgabe":
-                    neuegesamtBilanz.set("ausgaben", neuegesamtBilanz.get("ausgaben") + eintrag.get("betrag"));
-                    neuegesamtBilanz.set("bilanz", neuegesamtBilanz.get("bilanz") - eintrag.get("betrag"));
+                    neuegesamtbilanz.set("ausgaben", neuegesamtbilanz.get("ausgaben") + eintrag.get("betrag"));
+                    neuegesamtbilanz.set("bilanz", neuegesamtbilanz.get("bilanz") - eintrag.get("betrag"));
 
-                    neuegesamtBilanz.ausgaben += eintrag.get("betrag");
-                    neuegesamtBilanz.bilanz -= eintrag.get("betrag");
+                    neuegesamtbilanz.ausgaben += eintrag.get("betrag");
+                    neuegesamtbilanz.bilanz -= eintrag.get("betrag");
                     break;
                 default:
                     console.log(`Der Typ "${eintrag.get("typ")}" ist nicht bekannt.`);
                     break;
             }
         });
-        this.gesamtBilanz = neuegesamtBilanz;
+        this.gesamtbilanz = neuegesamtbilanz;
 
     },
 
-    // gesamtBilanzErstellen() {
-    //     let neuegesamtBilanz = {
+    // gesamtbilanzErstellen() {
+    //     let neuegesamtbilanz = {
     //         einnahmen: 0,
     //         ausgaben: 0,
     //         bilanz: 0
@@ -331,31 +331,31 @@ const haushaltsbuch = {
     //     this.eintraege.forEach(function (eintrag) {
     //         switch (eintrag.typ) {
     //             case "Einnahme":
-    //                 neuegesamtBilanz.einnahmen += eintrag.betrag;
-    //                 neuegesamtBilanz.bilanz += eintrag.betrag;
+    //                 neuegesamtbilanz.einnahmen += eintrag.betrag;
+    //                 neuegesamtbilanz.bilanz += eintrag.betrag;
     //                 break;
     //             case "Ausgabe":
-    //                 neuegesamtBilanz.ausgaben += eintrag.betrag;
-    //                 neuegesamtBilanz.bilanz -= eintrag.betrag;
+    //                 neuegesamtbilanz.ausgaben += eintrag.betrag;
+    //                 neuegesamtbilanz.bilanz -= eintrag.betrag;
     //                 break;
     //             default:
     //                 console.log(`Der Typ "${eintrag.typ}" ist nicht bekannt.`);
     //                 break;
     //         }
     //     });
-    //     this.gesamtBilanz = neuegesamtBilanz;
+    //     this.gesamtbilanz = neuegesamtbilanz;
 
     // },
 
-    // eintragMitgesamtBilanzVerrechnen() { (--> jetzt im Objekt zu finden als "gesamtBilanzErstellen()" mit "forEach()")
+    // eintragMitgesamtbilanzVerrechnen() { (--> jetzt im Objekt zu finden als "gesamtbilanzErstellen()" mit "forEach()")
     //     switch (this.neuer_eintrag.typ) {
     //         case "Einnahme":
-    //             this.gesamtBilanz.bilanz_einnahmen += this.neuer_eintrag.betrag;
-    //             this.gesamtBilanz.bilanz += this.neuer_eintrag.betrag;
+    //             this.gesamtbilanz.bilanz_einnahmen += this.neuer_eintrag.betrag;
+    //             this.gesamtbilanz.bilanz += this.neuer_eintrag.betrag;
     //             break;
     //         case "Ausgabe":
-    //             this.gesamtBilanz.bilanz_ausgaben += this.neuer_eintrag.betrag;
-    //             this.gesamtBilanz.bilanz -= this.neuer_eintrag.betrag;
+    //             this.gesamtbilanz.bilanz_ausgaben += this.neuer_eintrag.betrag;
+    //             this.gesamtbilanz.bilanz -= this.neuer_eintrag.betrag;
     //             break;
     //         default:
     //             console.log(`Der Typ "${this.neuer_eintrag.typ}" ist nicht bekannt.`);
@@ -363,29 +363,29 @@ const haushaltsbuch = {
     //     }
     // },
 
-    // eintragMitgesamtBilanzVerrechnen() { (--> jetzt im Objekt zu finden als  Switch - Statement: "eintragMitgesamtBilanzVerrechnen()")
+    // eintragMitgesamtbilanzVerrechnen() { (--> jetzt im Objekt zu finden als  Switch - Statement: "eintragMitgesamtbilanzVerrechnen()")
     //     if (this.neuer_eintrag.typ === "Einnahme") {
-    //         this.gesamtBilanz.bilanz_einnahmen += this.neuer_eintrag.betrag;
-    //         this.gesamtBilanz.bilanz += this.neuer_eintrag.betrag;
+    //         this.gesamtbilanz.bilanz_einnahmen += this.neuer_eintrag.betrag;
+    //         this.gesamtbilanz.bilanz += this.neuer_eintrag.betrag;
     //     } else if (this.neuer_eintrag.typ === "Ausgabe") {
-    //         this.gesamtBilanz.bilanz_ausgaben += this.neuer_eintrag.betrag;
-    //         this.gesamtBilanz.bilanz -= this.neuer_eintrag.betrag;
+    //         this.gesamtbilanz.bilanz_ausgaben += this.neuer_eintrag.betrag;
+    //         this.gesamtbilanz.bilanz -= this.neuer_eintrag.betrag;
     //     } else {
     //         console.log(`Der Typ "${this.neuer_eintrag.typ}" ist nicht bekannt.`);
     //     }
     // },
 
     // wird durch HTML - Ausgabe ersetzt
-    // gesamtBilanzAusgeben() {
-    //     console.log(`Einnahmen: ${(this.gesamtBilanz.get("einnahmen") / 100).toFixed(2)} €\n`
-    //         + `Ausgaben: ${(this.gesamtBilanz.get("ausgaben") / 100).toFixed(2)} €\n`
-    //         + `Bilanz: ${(this.gesamtBilanz.get("bilanz") / 100).toFixed(2)} €\n`
-    //         + `Bilanz ist positiv: ${(this.gesamtBilanz.get("bilanz") / 100) >= 0}`
+    // gesamtbilanzAusgeben() {
+    //     console.log(`Einnahmen: ${(this.gesamtbilanz.get("einnahmen") / 100).toFixed(2)} €\n`
+    //         + `Ausgaben: ${(this.gesamtbilanz.get("ausgaben") / 100).toFixed(2)} €\n`
+    //         + `Bilanz: ${(this.gesamtbilanz.get("bilanz") / 100).toFixed(2)} €\n`
+    //         + `Bilanz ist positiv: ${(this.gesamtbilanz.get("bilanz") / 100) >= 0}`
     //     );
     // },
 
     //     <aside id="gesamtbilanz">
-    //     <h1>Gesamtbilanz</h1>
+    //     <h1>gesamtbilanz</h1>
     //     <div class="gesamtbilanz-zeile einnahmen">
     //       <span>Einnahmen:</span><span>0,00€</span>
     //     </div>
@@ -397,18 +397,63 @@ const haushaltsbuch = {
     //     </div>
     //   </aside>
 
-    // htmlGesamtBilanzGenerieren()
-    // anhand der aktuellen Gesamtbilanz die Gesamtbilanz neu generieren
+    // anhand der aktuellen gesamtbilanz die gesamtbilanz neu generieren
+    htmlgesamtbilanzGenerieren() {
+        let gesamtbilanz = document.createElement("aside");
+        gesamtbilanz.setAttribute("id", "gesamtbilanz");
 
-    gesamtBilanzAnzeigen() {
-        // prüfen, ob bereits Gesamtbilanz angezeigt wird
+        let ueberschrift = document.createElement("h1");
+        ueberschrift.textContent = "gesamtbilanz";
+        gesamtbilanz.insertAdjacentElement("afterbegin", ueberschrift);
+
+        let einnahmenZeile = document.createElement("div");
+        einnahmenZeile.setAttribute("class", "gesamtbilanz-zeile einnahmen");
+        let einnahmenTitel = document.createElement("span");
+        einnahmenTitel.textContent = "Einnahmen";
+        einnahmenZeile.insertAdjacentElement("afterbegin", einnahmenTitel);
+        let einnahmenBetrag = document.createElement("span");
+        einnahmenBetrag.textContent = `${(this.gesamtbilanz.get("einnahmen") / 100).toFixed(2).replace(".", ",")}€`;
+        einnahmenZeile.insertAdjacentElement("beforeend", einnahmenBetrag);
+        gesamtbilanz.insertAdjacentElement("beforeend", einnahmenZeile);
+
+        let ausgabenZeile = document.createElement("div");
+        ausgabenZeile.setAttribute("class", "gesamtbilanz-zeile ausgaben");
+        let ausgabenTitel = document.createElement("span");
+        ausgabenTitel.textContent = "Ausgaben";
+        ausgabenZeile.insertAdjacentElement("afterbegin", ausgabenTitel);
+        let ausgabenBetrag = document.createElement("span");
+        ausgabenBetrag.textContent = `${(this.gesamtbilanz.get("ausgaben") / 100).toFixed(2).replace(".", ",")}€`;
+        ausgabenZeile.insertAdjacentElement("beforeend", ausgabenBetrag);
+        gesamtbilanz.insertAdjacentElement("beforeend", ausgabenZeile);
+
+        let bilanzZeile = document.createElement("div");
+        bilanzZeile.setAttribute("class", "gesamtbilanz-zeile bilanz");
+        let bilanzTitel = document.createElement("span");
+        bilanzTitel.textContent = "Bilanz";
+        bilanzZeile.insertAdjacentElement("afterbegin", bilanzTitel);
+        let bilanzBetrag = document.createElement("span");
+        if (this.gesamtbilanz.get("bilanz") >= 0) {
+            bilanzBetrag.setAttribute("class", "positiv");
+            bilanzBetrag.textContent = `${(this.gesamtbilanz.get("bilanz") / 100).toFixed(2).replace(".", ",")}€`;
+        } else if (this.gesamtbilanz.get("bilanz") < 0) {
+            bilanzBetrag.setAttribute("class", "negativ");
+            bilanzBetrag.textContent = `-${(this.gesamtbilanz.get("bilanz") / 100).toFixed(2).replace(".", ",")}€`;
+        }
+        bilanzZeile.insertAdjacentElement("beforeend", bilanzBetrag);
+        gesamtbilanz.insertAdjacentElement("beforeend", bilanzZeile);
+
+        return gesamtbilanz;
+    },
+
+    gesamtbilanzAnzeigen() {
+        // prüfen, ob bereits gesamtbilanz angezeigt wird
         document.querySelectorAll("#gesamtbilanz").forEach(function (gesamtbilanz) {
-            // ggf. Gesamtbilanz entfernen
+            // ggf. gesamtbilanz entfernen
             gesamtbilanz.remove();
         });
-        document.querySelector("body").insertAdjacentElement("beforeend", this.htmlEintragGenerieren());
+        document.querySelector("body").insertAdjacentElement("beforeend", this.htmlgesamtbilanzGenerieren());
 
-        // neue Gesamtbilanz anzeigen (htmlGesamtBilanzGenerieren())
+        // neue gesamtbilanz anzeigen (htmlgesamtbilanzGenerieren())
     },
     // eine Funktion die alle Methoden aufruft
     eintragHinzufuegen() {
@@ -419,8 +464,8 @@ const haushaltsbuch = {
                 // Methodenaufrufe anpassen
                 this.eintraegeSortieren();
                 this.eintraegeAnzeigen();
-                this.gesamtBilanzErstellen();
-                this.gesamtBilanzAnzeigen();
+                this.gesamtbilanzErstellen();
+                this.gesamtbilanzAnzeigen();
             } else {
                 this.fehler = [];
             }
@@ -434,8 +479,8 @@ const haushaltsbuch = {
 //     eintragHinzufuegen() {
 //         this.eintragErfassen();
 //         this.eintraegeAusgeben();
-//         this.gesamtBilanzErstellen();
-//         this.gesamtBilanzAusgeben();
+//         this.gesamtbilanzErstellen();
+//         this.gesamtbilanzAusgeben();
 //     }
 // };
 // Haushaltsbuch zur Korrektur auslesen ( --> jetzt als while loop mit confirm zur Abfrage von unbekannt vielen Einträgen)
@@ -490,8 +535,8 @@ console.log(haushaltsbuch);
 //     console.log(`Der Typ "${titeltyp_1}" ist nicht bekannt.`);
 // }
 
-// Umbau mit Funktion (--> jetzt im Objekt zu finden als "eintragMitgesamtBilanzVerrechnen()")
-// const eintragMitgesamtBilanzVerrechnen = function (typ, betrag) {
+// Umbau mit Funktion (--> jetzt im Objekt zu finden als "eintragMitgesamtbilanzVerrechnen()")
+// const eintragMitgesamtbilanzVerrechnen = function (typ, betrag) {
 //     if (typ === "Einnahme") {
 //         bilanz_einnahmen += betrag;
 //         bilanz += betrag;
@@ -503,7 +548,7 @@ console.log(haushaltsbuch);
 //     }
 // };
 
-// eintragMitgesamtBilanzVerrechnen(typ, betrag);
+// eintragMitgesamtbilanzVerrechnen(typ, betrag);
 
 // Datensatz 2
 // -->Codeblock ist durch Funktion ersetzt
@@ -528,7 +573,7 @@ console.log(haushaltsbuch);
 //     console.log(`Der Typ "${titeltyp_2}" ist nicht bekannt.`);
 // }
 
-// gesamtBilanz ausgeben
+// gesamtbilanz ausgeben
 
 // -->Codeblock ist durch Funktion ersetzt
 // let positiv = bilanz >= 0; //true
@@ -537,23 +582,23 @@ console.log(haushaltsbuch);
 //     Bilanz: ${bilanz} ct
 //     Bilanz ist positiv: ${positiv}`);
 
-// Umbau mit Funktion (--> jetzt im Objekt zu finden als "gesamtBilanzAusgeben()")
-// const gesamtBilanzAusgeben = function (bilanz_einnahmen, bilanz_ausgaben, bilanz) {
+// Umbau mit Funktion (--> jetzt im Objekt zu finden als "gesamtbilanzAusgeben()")
+// const gesamtbilanzAusgeben = function (bilanz_einnahmen, bilanz_ausgaben, bilanz) {
 //     console.log(`Einnahmen: ${bilanz_einnahmen} ct
 // Ausgaben: ${bilanz_ausgaben} ct
 // Bilanz: ${bilanz} ct
 // Bilanz ist positiv: ${bilanz >= 0}`);
 // };
 
-// gesamtBilanzAusgeben(bilanz_einnahmen, bilanz_ausgaben, bilanz);
+// gesamtbilanzAusgeben(bilanz_einnahmen, bilanz_ausgaben, bilanz);
 
 
 // alle Funktionen mit einer Funktion aufrufen  (--> jetzt im Objekt zu finden als "eintragHinzufuegen()")
 // const eintragHinzufuegen = function () {
 //     eintragErfassen();
 //     eintragAusgeben(titel, typ, betrag, datum);
-//     eintragMitgesamtBilanzVerrechnen(typ, betrag);
-//     gesamtBilanzAusgeben(bilanz_einnahmen, bilanz_ausgaben, bilanz);
+//     eintragMitgesamtbilanzVerrechnen(typ, betrag);
+//     gesamtbilanzAusgeben(bilanz_einnahmen, bilanz_ausgaben, bilanz);
 // };
 
 // eintragHinzufuegen();
