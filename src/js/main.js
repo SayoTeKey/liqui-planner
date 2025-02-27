@@ -45,9 +45,12 @@ const haushaltsbuch = {
         } else {
             console.log("Folgende Fehler wurden gefunden:");
 
-            this.fehler.forEach(function (fehler) {
-                console.log(fehler);
-            });
+            this.fehler.forEach(fehler => console.log(fehler));
+
+            // jetzt als Arrow-Function geschrieben
+            // this.fehler.forEach(function (fehler) {
+            //     console.log(fehler); 
+            // });
         }
     },
 
@@ -140,8 +143,8 @@ const haushaltsbuch = {
     // },
 
 
-    eintraegeSortieren() { // Anpassung von .datum zu --> get("datum")
-        this.eintraege.sort(function (eintragA, eintragB) {
+    eintraegeSortieren() { // Anpassung von .datum zu --> get("datum" + als Arrow Function geschrieben)
+        this.eintraege.sort((eintragA, eintragB) => {
             if (eintragA.get("datum") > eintragB.get("datum")) {
                 return -1;
             } else if (eintragA.get("datum") < eintragB.get("datum")) {
@@ -231,19 +234,25 @@ const haushaltsbuch = {
     eintraegeAnzeigen() {
         // überprüfen, ob eine <ul> bereits vorhanden ist
         // ggf. <ul> entfernen
+        // als ArrowFunction geschrieben
 
-        document.querySelectorAll(".monatsliste ul").forEach(function (eintragsliste) {
-            eintragsliste.remove();
-        });
+        document.querySelectorAll(".monatsliste ul").forEach(eintragsliste => eintragsliste.remove());
         // <ul> erstellen
         let eintragsliste = document.createElement("ul");
         // über eintraege [] itterieren
         // für jeden Eintrag einen HTML-Eintrag erstellen
         // HTML-Eintrag in <ul> einsetzen
-        for (let eintrag of this.eintraege) {
+
+
+        this.eintraege.forEach((eintrag) => {
             eintragsliste.insertAdjacentElement("beforeend", this.htmlEintragGenerieren(eintrag));
-            // <ul> in den article.monatsliste einsetzen
-        }
+        });
+
+        // For-of-Schleife wird mit Hilfe der Arrow-Function umgeschrieben (-->ersetzt)
+        // for (let eintrag of this.eintraege) {
+        //     eintragsliste.insertAdjacentElement("beforeend", this.htmlEintragGenerieren(eintrag));
+        //     }
+        // <ul> in den article.monatsliste einsetzen
         document.querySelector(".monatsliste").insertAdjacentElement("afterbegin", eintragsliste);
     },
 
@@ -300,7 +309,8 @@ const haushaltsbuch = {
         neuegesamtbilanz.set("ausgaben", 0);
         neuegesamtbilanz.set("bilanz", 0);
 
-        this.eintraege.forEach(function (eintrag) {
+        // als ArrowFunction geschrieben
+        this.eintraege.forEach(eintrag => {
             switch (eintrag.get("typ")) {
                 case "einnahme":
                     neuegesamtbilanz.set("einnahmen", neuegesamtbilanz.get("einnahmen") + eintrag.get("betrag"));
@@ -445,11 +455,11 @@ const haushaltsbuch = {
     },
 
     gesamtbilanzAnzeigen() {
-        // prüfen, ob bereits gesamtbilanz angezeigt wird
-        document.querySelectorAll("#gesamtbilanz").forEach(function (gesamtbilanz) {
+        // prüfen, ob bereits gesamtbilanz angezeigt wird ( als ArrowFunction geschrieben)
+        document.querySelectorAll("#gesamtbilanz").forEach(gesamtbilanz =>
             // ggf. gesamtbilanz entfernen
-            gesamtbilanz.remove();
-        });
+            gesamtbilanz.remove()
+        );
         document.querySelector("body").insertAdjacentElement("beforeend", this.htmlgesamtbilanzGenerieren());
 
         // neue gesamtbilanz anzeigen (htmlgesamtbilanzGenerieren())
