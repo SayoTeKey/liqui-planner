@@ -2,11 +2,30 @@
 
 const eingabeformular = {
 
-    htmlGenerieren() {
+  absendenEventHinzufuegen(formular) {
+    formular.querySelector("#eingabeformular").addEventListener("submit", event => {
+      event.preventDefault();
+      // Formulardaten holen
+      // Formulardaten verarbeiten
+      // Formulardaten validieren
+      // wennn die Formulardaten valide sind
+      // Eintrag zum Haushaltbuch hinzufügen
+      // wenn bereits Fehlermeldung angezeigt wird
+      // Fehlermeldung entfernen 
+      // Formular zurücksetzen
+      // Datum auf heutigen Tag setzen
+      // wenn die Formulardaten NICHT valide sind
+      // wenn bereits Fehlermeldung angezeigt wird
+      // Fehlermeldung entfernen 
+      // Fehlermeldung im Eingabeformular-Container anzeigen
+    });
+  },
 
-        let eingabeformular = document.createElement("section");
-        eingabeformular.setAttribute("id", "eingabeformular-container");
-        eingabeformular.innerHTML = `<form id="eingabeformular" action="#" method="get"></form>
+  htmlGenerieren() {
+
+    let eingabeformular = document.createElement("section");
+    eingabeformular.setAttribute("id", "eingabeformular-container");
+    eingabeformular.innerHTML = `<form id="eingabeformular" action="#" method="get"></form>
       <div class="eingabeformular-zeile">
         <h1>Neue Einnahme / Ausgabe hinzufügen</h1>
       </div>
@@ -74,12 +93,16 @@ const eingabeformular = {
         </button>
       </div>`;
 
-        return eingabeformular;
-    },
+    this.absendenEventHinzufuegen(eingabeformular);
 
-    anzeigen() {
-        document.querySelector("#navigationsleiste").insertAdjacentElement("afterend", this.htmlGenerieren());
+    return eingabeformular;
 
-    }
+  },
+
+  anzeigen() {
+    document.querySelector("#navigationsleiste").insertAdjacentElement("afterend", this.htmlGenerieren());
+    // Datum auf heutigen Tag setzen
+
+  }
 
 };
