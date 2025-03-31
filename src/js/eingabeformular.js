@@ -4,32 +4,42 @@ const eingabeformular = {
 
   formulardatenHolen(event) {
 
-    let typ;
-
-    if (event.target.elements.ausgabe.checked === true) {
-      typ = "ausgabe";
-    } else if (event.target.elements.einnahme.checked === true) {
-      typ = "einnahme";
-    }
-
     return {
       titel: event.target.elements.titel.value,
       betrag: event.target.elements.betrag.value,
-      typ: typ,
+      einnahme: event.target.elements.einnahme.checked,
+      ausgabe: event.target.elements.ausgabe.checked,
       datum: event.target.elements.datum.valueAsDate,
     }
   },
 
+  formulardatenVerarbeiten(formulardaten) {
+    let typ;
+
+    if (formulardaten.einnahme === true) {
+      typ = "einnahme";
+    } else if (formulardaten.ausgabe === true) {
+      typ = "ausgabe";
+    }
+    return {
+      titel: formulardaten.titel.trim(),
+      typ: typ,
+      betrag: Number(formulardaten.betrag) * 100,
+      datum: formulardaten.datum
+    }
+  },
+
+
   absendenEventHinzufuegen(formular) {
     formular.querySelector("#eingabeformular").addEventListener("submit", event => {
       event.preventDefault();
-      // Formulardaten holen
+
+      // Formulardaten holen und verarbeiten
       console.log(event);
 
-      let formulardaten = this.formulardatenHolen(event);
+      let formulardaten = this.formulardatenVerarbeiten(this.formulardatenHolen(event));
       console.log(formulardaten);
 
-      // Formulardaten verarbeiten
       // Formulardaten validieren
       // wennn die Formulardaten valide sind
       // Eintrag zum Haushaltbuch hinzufügen
