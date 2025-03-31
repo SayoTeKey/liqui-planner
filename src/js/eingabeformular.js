@@ -2,10 +2,22 @@
 
 const eingabeformular = {
 
+  formulardatenHolen(event) {
+    return {
+      titel: event.target.elements.titel.value,
+      typ: event.target.elements.betrag.value,
+      betrag: ,
+      datum: event.target.elements.datum.valueAsDate,
+    }
+  },
+
   absendenEventHinzufuegen(formular) {
     formular.querySelector("#eingabeformular").addEventListener("submit", event => {
       event.preventDefault();
       // Formulardaten holen
+      console.log(event);
+
+      let formulardaten = this.formulardatenHolen(event);
       // Formulardaten verarbeiten
       // Formulardaten validieren
       // wennn die Formulardaten valide sind
