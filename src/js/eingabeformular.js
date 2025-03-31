@@ -3,10 +3,19 @@
 const eingabeformular = {
 
   formulardatenHolen(event) {
+
+    let typ;
+
+    if (event.target.elements.ausgabe.checked === true) {
+      typ = "ausgabe";
+    } else if (event.target.elements.einnahme.checked === true) {
+      typ = "einnahme";
+    }
+
     return {
       titel: event.target.elements.titel.value,
-      typ: event.target.elements.betrag.value,
-      betrag: ,
+      betrag: event.target.elements.betrag.value,
+      typ: typ,
       datum: event.target.elements.datum.valueAsDate,
     }
   },
@@ -18,6 +27,8 @@ const eingabeformular = {
       console.log(event);
 
       let formulardaten = this.formulardatenHolen(event);
+      console.log(formulardaten);
+
       // Formulardaten verarbeiten
       // Formulardaten validieren
       // wennn die Formulardaten valide sind
