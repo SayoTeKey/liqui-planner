@@ -3,7 +3,7 @@
 const eingabeformular = {
 
   formulardatenHolen(event) {
-
+    // formulardaten-Objekt erstellen
     return {
       titel: event.target.elements.titel.value,
       betrag: event.target.elements.betrag.value,
@@ -24,9 +24,28 @@ const eingabeformular = {
     return {
       titel: formulardaten.titel.trim(),
       typ: typ,
-      betrag: Number(formulardaten.betrag) * 100,
+      betrag: parseFloat(formulardaten.betrag) * 100,
       datum: formulardaten.datum
     }
+  },
+
+  formulardatenValidieren(formulardaten) {
+    let fehler = [];
+    if (formulardaten.titel === "") {
+      fehler.push("Titel");
+    }
+    if (
+      formulardaten.typ.match(/^(?:einnahme|ausgabe)$/i) === null
+    ) {
+      fehler.push("Typ");
+    }
+    if (isNaN(formulardaten.betrag)) {
+      fehler.push("Betrag");
+    }
+    if (formulardaten.datum === null) {
+      fehler.push("Datum");
+    }
+    return fehler;
   },
 
 
@@ -36,11 +55,14 @@ const eingabeformular = {
 
       // Formulardaten holen und verarbeiten
       console.log(event);
-
-      let formulardaten = this.formulardatenVerarbeiten(this.formulardatenHolen(event));
+      let abc = this.formulardatenHolen(event)
+      let formulardaten = this.formulardatenVerarbeiten(abc);
       console.log(formulardaten);
 
       // Formulardaten validieren
+      let formular_fehler = this.formulardatenValidieren(formulardaten);
+      console.log(formular_fehler);
+
       // wennn die Formulardaten valide sind
       // Eintrag zum Haushaltbuch hinzufügen
       // wenn bereits Fehlermeldung angezeigt wird
@@ -72,7 +94,8 @@ const eingabeformular = {
             name="titel"
             placeholder="z.B. Einkaufen"
             size="10"
-            title="Titel des Eintrags"
+            title="Titel des Eintrags" 
+
           />
           <input
             type="radio"
@@ -106,8 +129,9 @@ const eingabeformular = {
             placeholder="z.B. 10,42"
             size="10"
             step="0.01"
-            title="Betrag des Eintrags (max. zwei Nachkommastellen, kein €-Zeichen)"
-          />
+            title="Betrag des Eintrags (max. zwei Nachkommastellen, kein €-Zeichen)" 
+
+            />
           <label for="datum">Datum</label>
           <input
             type="date"
@@ -117,6 +141,7 @@ const eingabeformular = {
             placeholder="jjjj-mm-tt"
             size="10"
             title="Datum des Eintrags (Format: jjjj-mm-tt)"
+
           />
         </div>
       </div>
