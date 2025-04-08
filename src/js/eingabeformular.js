@@ -49,31 +49,39 @@ const eingabeformular = {
     return fehler;
   },
 
-
   absendenEventHinzufuegen(formular) {
     formular.querySelector("#eingabeformular").addEventListener("submit", event => {
       event.preventDefault();
 
       // Formulardaten holen und Formulardaten verarbeiten
-      // console.log(event);
+      console.log(event);
       // let abc = this.formulardatenHolen(event)
       // let formulardaten = this.formulardatenVerarbeiten(abc);
-      // console.log(formulardaten);
+      let formulardaten = this.formulardatenVerarbeiten(this.formulardatenHolen(event));
+      console.log(formulardaten);
 
       // Formulardaten validieren
       let formular_fehler = this.formulardatenValidieren(formulardaten);
       console.log(formular_fehler);
 
       // wennn die Formulardaten valide sind
-      // Eintrag zum Haushaltbuch hinzufügen
-      // wenn bereits Fehlermeldung angezeigt wird
-      // Fehlermeldung entfernen 
-      // Formular zurücksetzen
-      // Datum auf heutigen Tag setzen
-      // wenn die Formulardaten NICHT valide sind
-      // wenn bereits Fehlermeldung angezeigt wird
-      // Fehlermeldung entfernen 
-      // Fehlermeldung im Eingabeformular-Container anzeigen
+      if (formular_fehler.length === 0) {
+        // Eintrag zum Haushaltbuch hinzufügen
+        haushaltsbuch.eintragHinzufuegen(formulardaten);
+
+        // wenn bereits Fehlermeldung angezeigt wird
+        // Fehlermeldung entfernen 
+        // Formular zurücksetzen
+        // Datum auf heutigen Tag setzen
+      } else {
+        // wenn die Formulardaten NICHT valide sind
+        // wenn bereits Fehlermeldung angezeigt wird
+        // Fehlermeldung entfernen 
+        // Fehlermeldung im Eingabeformular-Container anzeigen
+      }
+
+
+
     });
   },
 
