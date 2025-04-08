@@ -54,11 +54,11 @@ const eingabeformular = {
     formular.querySelector("#eingabeformular").addEventListener("submit", event => {
       event.preventDefault();
 
-      // Formulardaten holen und verarbeiten
-      console.log(event);
-      let abc = this.formulardatenHolen(event)
-      let formulardaten = this.formulardatenVerarbeiten(abc);
-      console.log(formulardaten);
+      // Formulardaten holen und Formulardaten verarbeiten
+      // console.log(event);
+      // let abc = this.formulardatenHolen(event)
+      // let formulardaten = this.formulardatenVerarbeiten(abc);
+      // console.log(formulardaten);
 
       // Formulardaten validieren
       let formular_fehler = this.formulardatenValidieren(formulardaten);
