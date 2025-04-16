@@ -15,7 +15,7 @@ const haushaltsbuch = {
     // eine Funktion die alle Methoden aufruft
     eintragHinzufuegen(formulardaten) {
 
-        let neuerEintrag = newMap();
+        let neuerEintrag = new Map();
         neuerEintrag.set("titel", formulardaten.titel);
         neuerEintrag.set("betrag", formulardaten.betrag);
         neuerEintrag.set("typ", formulardaten.typ);
