@@ -122,6 +122,7 @@ const eingabeformular = {
             value="ausgabe"
             form="eingabeformular"
             title="Typ des Eintrags"
+            checked
            
           />
           <label for="ausgabe" title="Typ des Eintrags">Ausgabe</label>

@@ -1,6 +1,6 @@
 "use strict";
 
 eingabeformular.anzeigen();
-//haushaltsbuch.eintragHinzufuegen();
+// haushaltsbuch.eintragHinzufuegen();
 // console.log(haushaltsbuch);
 
