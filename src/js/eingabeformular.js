@@ -72,6 +72,7 @@ const eingabeformular = {
         // wenn bereits Fehlermeldung angezeigt wird
         // Fehlermeldung entfernen 
         // Formular zurücksetzen
+        event.target.reset();
         // Datum auf heutigen Tag setzen
       } else {
         // wenn die Formulardaten NICHT valide sind
