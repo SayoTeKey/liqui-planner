@@ -49,6 +49,14 @@ const eingabeformular = {
     return fehler;
   },
 
+  datumAktualisieren() {
+    let datumsInput = document.querySelector("datum");
+    if (datumsInput !== null) {
+      datumsInput.valueAsDate = new Date();
+    }
+    document.querySelector("#datum").valueAsDate = new Date();
+  },
+
   absendenEventHinzufuegen(eingabeformular) {
     eingabeformular.querySelector("#eingabeformular").addEventListener("submit", event => {
       event.preventDefault();
@@ -74,6 +82,7 @@ const eingabeformular = {
         // Formular zurücksetzen
         event.target.reset();
         // Datum auf heutigen Tag setzen
+        this.datumAktualisieren();
       } else {
         // wenn die Formulardaten NICHT valide sind
         // wenn bereits Fehlermeldung angezeigt wird
@@ -171,7 +180,7 @@ const eingabeformular = {
   anzeigen() {
     document.querySelector("#navigationsleiste").insertAdjacentElement("afterend", this.htmlGenerieren());
     // Datum auf heutigen Tag setzen
-
+    this.datumAktualisieren();
   }
 
 };
