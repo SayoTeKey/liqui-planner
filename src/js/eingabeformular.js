@@ -79,6 +79,7 @@ const eingabeformular = {
         // wenn bereits Fehlermeldung angezeigt wird
 
         // Fehlermeldung entfernen 
+        this.fehlerboxEntfernen();
         // Formular zurücksetzen
         event.target.reset();
         // Datum auf heutigen Tag setzen
@@ -87,6 +88,7 @@ const eingabeformular = {
         // wenn die Formulardaten NICHT valide sind
         // wenn bereits Fehlermeldung angezeigt wird
         // Fehlermeldung entfernen 
+        this.fehlerboxEntfernen();
         // Fehlermeldung im Eingabeformular-Container anzeigen
         this.fehlerboxAnzeigen(formular_fehler);
       }
@@ -117,6 +119,13 @@ const eingabeformular = {
     let eingabeformularContainer = document.querySelector("#eingabeformular-container");
     if (eingabeformularContainer !== null) {
       eingabeformularContainer.insertAdjacentElement("afterbegin", this.htmlFehlerboxGenerieren(formular_fehler));
+    }
+  },
+
+  fehlerboxEntfernen() {
+    let bestehendeFehlerbox = document.querySelector(".fehlerbox");
+    if (bestehendeFehlerbox !== null) {
+      bestehendeFehlerbox.remove();
     }
   },
 
