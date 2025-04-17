@@ -54,7 +54,6 @@ const eingabeformular = {
     if (datumsInput !== null) {
       datumsInput.valueAsDate = new Date();
     }
-    document.querySelector("#datum").valueAsDate = new Date();
   },
 
   absendenEventHinzufuegen(eingabeformular) {
