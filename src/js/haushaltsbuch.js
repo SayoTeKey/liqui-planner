@@ -12,7 +12,10 @@ const haushaltsbuch = {
     // Einträge zukünftig speichern können
     eintraege: [],
 
-    // eine Funktion die alle Methoden aufruft
+    // Fehler zukünftig abfangen, bevor sie ausgegeben werden
+    fehler: [],
+
+    // eine Funktion, die alle Methoden aufruft
     eintragHinzufuegen(formulardaten) {
 
         let neuerEintrag = new Map();
@@ -29,9 +32,6 @@ const haushaltsbuch = {
         this.gesamtbilanzErstellen();
         this.gesamtbilanzAnzeigen();
     },
-
-    // Fehler zukünftig abfangen, bevor sie ausgegeben werden
-    // fehler: [],
 
     // einen Eintrag hinzufügen
 
@@ -198,9 +198,9 @@ const haushaltsbuch = {
         // für jeden Eintrag einen HTML-Eintrag erstellen
         // HTML-Eintrag in <ul> einsetzen
 
-        this.eintraege.forEach((eintrag) => {
-            eintragsliste.insertAdjacentElement("beforeend", this.htmlEintragGenerieren(eintrag));
-        });
+        this.eintraege.forEach(eintrag =>
+            eintragsliste.insertAdjacentElement("beforeend", this.htmlEintragGenerieren(eintrag))
+        );
         // <ul> in den article.monatsliste einsetzen
         document.querySelector(".monatsliste").insertAdjacentElement("afterbegin", eintragsliste);
     },

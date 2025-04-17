@@ -49,8 +49,8 @@ const eingabeformular = {
     return fehler;
   },
 
-  absendenEventHinzufuegen(formular) {
-    formular.querySelector("#eingabeformular").addEventListener("submit", event => {
+  absendenEventHinzufuegen(eingabeformular) {
+    eingabeformular.querySelector("#eingabeformular").addEventListener("submit", event => {
       event.preventDefault();
 
       // Formulardaten holen und Formulardaten verarbeiten
