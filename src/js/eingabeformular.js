@@ -69,7 +69,7 @@ const eingabeformular = {
 
       // Formulardaten validieren
       let formular_fehler = this.formulardatenValidieren(formulardaten);
-      console.log(formular_fehler);
+      console.log("Formularfehler", formular_fehler);
 
       // wennn die Formulardaten valide sind
       if (formular_fehler.length === 0) {
@@ -99,7 +99,7 @@ const eingabeformular = {
     let fehlerbox = document.createElement("div");
     fehlerbox.setAttribute("class", "fehlerbox");
     let fehlerText = document.createElement("span");
-    fehlerText.textContent = "Folgende Fehelr wurden nicht korrekt ausgefüllt:";
+    fehlerText.textContent = "Folgende Felder wurden nicht korrekt ausgefüllt:";
     fehlerbox.insertAdjacentElement("afterbegin", fehlerText);
 
     let fehlerListe = document.createElement("ul");
