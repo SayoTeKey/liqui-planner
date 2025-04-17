@@ -171,7 +171,8 @@ const haushaltsbuch = {
         // betrag-span
         let betrag = document.createElement("span");
         betrag.setAttribute("class", "betrag");
-        betrag.textContent = `${(eintrag.get("betrag") / 100).toFixed(2).replace(".", ",")}€`;
+        // betrag.textContent = `${(eintrag.get("betrag") / 100).toFixed(2).replace(".", ",")}€`;
+        betrag.textContent = `${(eintrag.get("betrag") / 100).toFixed(2).replace(/\./, ",")}€`;
         titel.insertAdjacentElement("afterend", betrag);
 
         // button
@@ -194,15 +195,21 @@ const haushaltsbuch = {
         document.querySelectorAll(".monatsliste ul").forEach(eintragsliste => eintragsliste.remove());
         // <ul> erstellen
         let eintragsliste = document.createElement("ul");
+        console.log("Eintragsliste", eintragsliste);
+
         // über eintraege [] itterieren
         // für jeden Eintrag einen HTML-Eintrag erstellen
         // HTML-Eintrag in <ul> einsetzen
 
-        this.eintraege.forEach(eintrag =>
-            eintragsliste.insertAdjacentElement("beforeend", this.htmlEintragGenerieren(eintrag))
+        this.eintraege.forEach(eintrag => eintragsliste.insertAdjacentElement("beforeend", this.htmlEintragGenerieren(eintrag))
         );
         // <ul> in den article.monatsliste einsetzen
-        document.querySelector(".monatsliste").insertAdjacentElement("afterbegin", eintragsliste);
+        const monatsliste = document.querySelector(".monatsliste");
+        if (monatsliste) {
+            monatsliste.insertAdjacentElement("afterbegin", eintragsliste);
+        } else {
+            console.error("Element '.monatsliste' not found.");
+        }
     },
 
     // gesamtbilanz erstellen

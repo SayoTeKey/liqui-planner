@@ -50,7 +50,7 @@ const eingabeformular = {
   },
 
   datumAktualisieren() {
-    let datumsInput = document.querySelector("datum");
+    let datumsInput = document.querySelector("#datum");
     if (datumsInput !== null) {
       datumsInput.valueAsDate = new Date();
     }
@@ -92,9 +92,6 @@ const eingabeformular = {
         // Fehlermeldung im Eingabeformular-Container anzeigen
         this.fehlerboxAnzeigen(formular_fehler);
       }
-
-
-
     });
   },
 
