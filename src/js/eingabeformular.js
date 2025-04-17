@@ -77,6 +77,7 @@ const eingabeformular = {
         haushaltsbuch.eintragHinzufuegen(formulardaten);
 
         // wenn bereits Fehlermeldung angezeigt wird
+
         // Fehlermeldung entfernen 
         // Formular zurücksetzen
         event.target.reset();
@@ -93,6 +94,24 @@ const eingabeformular = {
 
     });
   },
+
+  htmlFehlerboxGenerieren(formular_fehler) {
+    let fehlerbox = document.createElement("div");
+    fehlerbox.setAttribute("class", "fehlerbox");
+    let fehlerText = document.createElement("span");
+    fehlerText.textContent = "Folgende Fehelr wurden nicht korrekt ausgefüllt:";
+    fehlerbox.insertAdjacentElement("afterbegin", fehlerText);
+
+    let fehlerListe = document.createElement("ul");
+    formular_fehler.forEach(fehler => {
+      let fehlerListenpunkt = document.createElement("li");
+      fehlerListenpunkt.textContent = fehler;
+      fehlerListe.insertAdjacentElement("beforeend", fehlerListenpunkt);
+    });
+    fehlerbox.insertAdjacentElement("beforeend", fehlerListe);
+    return fehlerbox;
+  },
+
 
   htmlGenerieren() {
 
