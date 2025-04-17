@@ -88,6 +88,7 @@ const eingabeformular = {
         // wenn bereits Fehlermeldung angezeigt wird
         // Fehlermeldung entfernen 
         // Fehlermeldung im Eingabeformular-Container anzeigen
+        this.fehlerboxAnzeigen(formular_fehler);
       }
 
 
@@ -112,6 +113,12 @@ const eingabeformular = {
     return fehlerbox;
   },
 
+  fehlerboxAnzeigen(formular_fehler) {
+    let eingabeformularContainer = document.querySelector("#eingabeformular-container");
+    if (eingabeformularContainer !== null) {
+      eingabeformularContainer.insertAdjacentElement("afterbegin", this.htmlFehlerboxGenerieren(formular_fehler));
+    }
+  },
 
   htmlGenerieren() {
 
