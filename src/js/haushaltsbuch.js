@@ -33,6 +33,23 @@ const haushaltsbuch = {
         this.gesamtbilanzAnzeigen();
     },
 
+    eintragEntfernen(timestamp) {
+        let startIndex;
+        for (let i = 0; i < this.eintraege.length; i++) {
+            if (this.eintraege[i].get("timestamp") === parseInt(timestamp)) {
+                console.log(this.eintraege[i].get("timestamp"));
+
+                startIndex = i;
+                break;
+            }
+        }
+        this.eintraege.splice(startIndex, 1);
+
+        this.eintraegeAnzeigen();
+        this.gesamtbilanzErstellen();
+        this.gesamtbilanzAnzeigen();
+    },
+
     // einen Eintrag hinzufügen
 
     // eintragErfassen() {
@@ -184,7 +201,19 @@ const haushaltsbuch = {
         icon.setAttribute("class", "fas fa-trash");
         button.insertAdjacentElement("afterbegin", icon);
 
+        this.eintragEntfernenEventHinzufuegen(listenpunkt);
+
         return listenpunkt;
+
+    },
+
+    eintragEntfernenEventHinzufuegen(listenpunkt) {
+        listenpunkt.querySelector(".entfernen-button").addEventListener("click", e => {
+            let timestamp = e.target.parentElement.getAttribute("data-timestamp");
+            console.log(timestamp);
+
+            this.eintragEntfernen(timestamp);
+        });
     },
 
     eintraegeAnzeigen() {
@@ -195,7 +224,7 @@ const haushaltsbuch = {
         document.querySelectorAll(".monatsliste ul").forEach(eintragsliste => eintragsliste.remove());
         // <ul> erstellen
         let eintragsliste = document.createElement("ul");
-        console.log("Eintragsliste", eintragsliste);
+        // console.log("Eintragsliste", eintragsliste);
 
         // über eintraege [] itterieren
         // für jeden Eintrag einen HTML-Eintrag erstellen
@@ -211,6 +240,8 @@ const haushaltsbuch = {
             console.error("Element '.monatsliste' not found.");
         }
     },
+
+
 
     // gesamtbilanz erstellen
     gesamtbilanzErstellen() {
