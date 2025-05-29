@@ -61,15 +61,15 @@ const eingabeformular = {
       event.preventDefault();
 
       // Formulardaten holen und Formulardaten verarbeiten
-      console.log(event);
+      // console.log(event);
       // let abc = this.formulardatenHolen(event)
       // let formulardaten = this.formulardatenVerarbeiten(abc);
       let formulardaten = this.formulardatenVerarbeiten(this.formulardatenHolen(event));
-      console.log(formulardaten);
+      // console.log(formulardaten);
 
       // Formulardaten validieren
       let formular_fehler = this.formulardatenValidieren(formulardaten);
-      console.log("Formularfehler", formular_fehler);
+      // console.log("Formularfehler", formular_fehler);
 
       // wennn die Formulardaten valide sind
       if (formular_fehler.length === 0) {
