@@ -8,7 +8,6 @@ const eingabeformular = {
       titel: event.target.elements.titel.value,
       betrag: event.target.elements.betrag.value,
       einnahme: event.target.elements.einnahme.checked,
-      ausgabe: event.target.elements.ausgabe.checked,
       datum: event.target.elements.datum.valueAsDate,
     }
   },
@@ -16,7 +15,7 @@ const eingabeformular = {
   formulardatenVerarbeiten(formulardaten) {
     return {
       titel: formulardaten.titel.trim(),
-      typ: formulardaten.einnahme === true ? "einnahme" : formulardaten.ausgabe === true ? "ausgabe" : null,
+      typ: formulardaten.einnahme === false ? "ausgabe" : "einnahme",
       betrag: parseFloat(formulardaten.betrag) * 100,
       datum: formulardaten.datum
     }
@@ -26,12 +25,6 @@ const eingabeformular = {
     let fehler = [];
     if (formulardaten.titel === "") {
       fehler.push("Titel");
-    }
-    if (
-      formulardaten.typ === undefined ||
-      formulardaten.typ.match(/^(?:einnahme|ausgabe)$/i) === null
-    ) {
-      fehler.push("Typ");
     }
     if (isNaN(formulardaten.betrag)) {
       fehler.push("Betrag");
