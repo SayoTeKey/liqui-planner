@@ -50,123 +50,33 @@ const haushaltsbuch = {
         this.gesamtbilanzAnzeigen();
     },
 
-    // einen Eintrag hinzufügen
-
-    // eintragErfassen() {
-    //     let neuerEintrag = new Map();
-    //     neuerEintrag.set("titel", this.titelVerarbeiten(prompt("Wie heißt dein Eintrag?", "Gehalt")));
-    //     neuerEintrag.set("typ", this.typVerarbeiten(prompt("Ist das eine Einnahme oder Ausgabe?")));
-    //     neuerEintrag.set("betrag", this.betragVerarbeiten(prompt("Betrag (in Euro, ohne €-Zeichen)?")));
-    //     neuerEintrag.set("datum", this.datumVerarbeiten(prompt("Datum (jjjj-mm-tt):").trim()));
-    //     neuerEintrag.set("timeStamp", Date.now());
-    //     if (this.fehler.length === 0) {
-    //         this.eintraege.push(neuerEintrag);
-    //     } else {
-    //         console.log("Folgende Fehler wurden gefunden:");
-
-    //         this.fehler.forEach(fehler => console.log(fehler));
-    //     }
-    // },
-
-    // titelValidieren(titel) {
-    //     if (titel != "") {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // },
-
-    // titelVerarbeiten(titel) {
-    //     titel = titel.trim();
-    //     // Bsp.: "22,35" -> "23.35" -> 23.35 -> 2335
-    //     //Prüfen auf korrektes Betragsformat
-    //     if (this.titelValidieren(titel)) {
-    //         return titel;
-    //     } else {
-    //         //console.log("Keinen Titel angegeben.");
-    //         this.fehler.push("Keinen Titel angegeben."); // abfangen von Fehlern
-    //     }
-    // },
-
-    // typValidieren(typ) {
-    //     if (typ.match(/^(?:einnahme|ausgabe)$/i) != null) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // },
-
-    // typVerarbeiten(typ) {
-    //     typ = typ.trim().toLowerCase();
-    //     //Prüfen auf korrekten Typ
-    //     if (this.typValidieren(typ)) {
-    //         return typ;
-    //     } else {
-    //         //console.log(`Ungültiger Eintrags-Typ: ${typ}. Bitte erneut eingeben!`);
-    //         this.fehler.push(`Ungültiger Eintrags-Typ: ${typ}. Bitte erneut eingeben!`);  // abfangen von Fehlern
-    //     }
-    // },
-
-    // betragValidieren(betrag) {
-    //     if (betrag.match(/^\d+(?:(?:,|\.)\d\d?)?$/) != null) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // },
-
-    // betragVerarbeiten(betrag) {
-    //     betrag = betrag.trim();
-    //     // Bsp.: "22,35" -> "23.35" -> 23.35 -> 2335
-    //     //Prüfen auf korrektes Betragsformat
-    //     if (this.betragValidieren(betrag)) {
-    //         return parseFloat(betrag.replace(",", ".")) * 100;
-    //     } else {
-    //         // console.log(`Ungültiger Betrag: ${betrag} €. Bitte erneut eingeben!`);
-    //         this.fehler.push(`Ungültiger Betrag: ${betrag} €. Bitte erneut eingeben!`);  // abfangen von Fehlern
-    //     }
-    // },
-
-    // datumValidieren(datum) {
-    //     if (datum.match(/^\d{4}-\d{2}-\d{2}$/) !== null) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // },
-
-    // datumVerarbeiten(datum) {
-    //     datum = datum.trim();
-    //     // Bsp.: "22,35" -> "23.35" -> 23.35 -> 2335
-    //     //Prüfen auf korrektes Datumsformat
-    //     if (this.datumValidieren(datum)) {
-    //         return new Date(`${datum} 00:00:00`);
-    //     } else {
-    //         // console.log(`Ungültiges Datumsformat: "${datum}". Bitte erneut eingeben!`);
-    //         this.fehler.push(`Ungültiges Datumsformat: "${datum}". Bitte erneut eingeben!`);  // abfangen von Fehlern
-    //     }
-    // },
-
     eintraegeSortieren() { // Anpassung von .datum zu --> get("datum" + als Arrow Function geschrieben)
         this.eintraege.sort((eintragA, eintragB) => {
-            if (eintragA.get("datum") > eintragB.get("datum")) {
-                return -1;
-            } else if (eintragA.get("datum") < eintragB.get("datum")) {
-                return 1;
-            } else {
-                return 0;
-            }
+
+            return eintragA.get("datum") > eintragB.get("datum") ? -1 : eintragA.get("datum") < eintragB.get("datum") ? 1 : 0;
+
+            // jetzt in ternaeren Operator umgewandelt => unter eintreageSortieren()
+            // if (eintragA.get("datum") > eintragB.get("datum")) {
+            //     return -1;
+            // } else if (eintragA.get("datum") < eintragB.get("datum")) {
+            //     return 1;
+            // } else {
+            //     return 0;
+            // }
         });
     },
 
     htmlEintragGenerieren(eintrag) {
-
         let listenpunkt = document.createElement("li");
-        if (eintrag.get("typ") === "einnahme") {
-            listenpunkt.setAttribute("class", "einnahme");
-        } else if (eintrag.get("typ") === "ausgabe") {
-            listenpunkt.setAttribute("class", "ausgabe");
-        }
+        eintrag.get("typ") === "einnahme" ? listenpunkt.setAttribute("class", "einnahme") : listenpunkt.setAttribute("class", "ausgabe");
+
+        // jetzt als ternaerer Operator in htmlEintragGenerieren()
+        // let listenpunkt = document.createElement("li");
+        // if (eintrag.get("typ") === "einnahme") {
+        //     listenpunkt.setAttribute("class", "einnahme");
+        // } else if (eintrag.get("typ") === "ausgabe") {
+        //     listenpunkt.setAttribute("class", "ausgabe");
+        // }
         listenpunkt.setAttribute("data-timestamp", eintrag.get("timestamp"));
 
         // datum-span
