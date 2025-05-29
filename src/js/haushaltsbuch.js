@@ -114,13 +114,12 @@ const haushaltsbuch = {
         this.eintragEntfernenEventHinzufuegen(listenpunkt);
 
         return listenpunkt;
-
     },
 
     eintragEntfernenEventHinzufuegen(listenpunkt) {
         listenpunkt.querySelector(".entfernen-button").addEventListener("click", e => {
             let timestamp = e.target.parentElement.getAttribute("data-timestamp");
-            console.log(timestamp);
+            // console.log(timestamp);
 
             this.eintragEntfernen(timestamp);
         });
@@ -139,7 +138,6 @@ const haushaltsbuch = {
         // über eintraege [] itterieren
         // für jeden Eintrag einen HTML-Eintrag erstellen
         // HTML-Eintrag in <ul> einsetzen
-
         this.eintraege.forEach(eintrag => eintragsliste.insertAdjacentElement("beforeend", this.htmlEintragGenerieren(eintrag))
         );
         // <ul> in den article.monatsliste einsetzen
@@ -150,8 +148,6 @@ const haushaltsbuch = {
             console.error("Element '.monatsliste' not found.");
         }
     },
-
-
 
     // gesamtbilanz erstellen
     gesamtbilanzErstellen() {
@@ -217,11 +213,14 @@ const haushaltsbuch = {
         bilanzTitel.textContent = "Bilanz";
         bilanzZeile.insertAdjacentElement("afterbegin", bilanzTitel);
         let bilanzBetrag = document.createElement("span");
-        if (this.gesamtbilanz.get("bilanz") >= 0) {
-            bilanzBetrag.setAttribute("class", "positiv");
-        } else if (this.gesamtbilanz.get("bilanz") < 0) {
-            bilanzBetrag.setAttribute("class", "negativ");
-        }
+
+        this.gesamtbilanz.get("bilanz") >= 0 ? bilanzBetrag.setAttribute("class", "positiv") : bilanzBetrag.setAttribute("class", "negativ");
+        // jetzt als ternaerer Operator geschrieben
+        // if (this.gesamtbilanz.get("bilanz") >= 0) {
+        //     bilanzBetrag.setAttribute("class", "positiv");
+        // } else if (this.gesamtbilanz.get("bilanz") < 0) {
+        //     bilanzBetrag.setAttribute("class", "negativ");
+        // }
         bilanzBetrag.textContent = `${(this.gesamtbilanz.get("bilanz") / 100).toFixed(2).replace(".", ",")}€`;
         bilanzZeile.insertAdjacentElement("beforeend", bilanzBetrag);
         gesamtbilanz.insertAdjacentElement("beforeend", bilanzZeile);
